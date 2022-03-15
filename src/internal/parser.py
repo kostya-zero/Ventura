@@ -3,7 +3,7 @@ from .formater import Formater
 from .exceptions import *
 from .funcs import Funcs
 
-from libs.main import Main
+from libs.lib_main import Main
 
 class Parser(object):
     def __init__(self, filepath: str):
@@ -22,8 +22,11 @@ class Parser(object):
             "$__cpurevision": os.environ["PROCESSOR_REVISION"]
         }
         self.libs = {
-            "main": False
+            "main": False,
+            "fwriter": False
         }
+
+        self.fwriter_file = ''
 
         self.illegal_symb = ['@', '#', '%', '^', '&', '*', '!']
 
@@ -47,6 +50,8 @@ class Parser(object):
                             split = line.split(' ')
                             if split[1] == 'main':
                                 self.libs["main"] = True
+                            elif split[1] == 'fwriter':
+                                self.libs["fwriter"] = True
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith(';prog_name'):
@@ -71,19 +76,44 @@ class Parser(object):
                         raise InternalError('Program already started.')
                 elif line.startswith('&'):
                     if self.libs["main"] == True:
-                        if line.startswith('&skip'): pass
-                        elif line.startswith('&out'): Main.out(line, self.memory)
-                        elif line.startswith('&lnout'): Main.lnout(line, self.memory)
-                        elif line.startswith('&sv'): self.memory = Main.sv(line, self.memory)
-                        elif line.startswith('&exit'): Main.exit()
-                        elif line.startswith('&void'): self.memory = Main.void(line, self.memory)
-                        elif line.startswith('&zero'): self.memory = Main.zero(line, self.memory)
-                        elif line.startswith('&wipe'): Main.wipe()
-                        elif line.startswith('&get_in'): self.memory = Main.get_in(line, self.memory)
-                        elif line.startswith('&execute'): Main.execute(line, self.memory)
+                        act = ''
+                        if line.count(':') == 1:
+                            act = line.split(':')[0].strip()
+                        elif line.count(':') >= 2:
+                            raise PackageError(f'Function expression must have only one single ":".')
+                        else:
+                            act = line
+
+                        if act == '&skip': pass
+                        elif act == '&out': Main.out(line, self.memory)
+                        elif act == '&lnout': Main.lnout(line, self.memory)
+                        elif act == '&sv': self.memory = Main.sv(line, self.memory)
+                        elif act == '&exit': Main.exit()
+                        elif act == '&void': self.memory = Main.void(line, self.memory)
+                        elif act == '&zero': self.memory = Main.zero(line, self.memory)
+                        elif act == '&wipe': Main.wipe()
+                        elif act == '&get_in': self.memory = Main.get_in(line, self.memory)
+                        elif act == '&execute': Main.execute(line, self.memory)
                         else: raise TypeError(f'Unknown expression -> {line}.')
                     else:
                         raise InternalError(f'Main package are not used.')
+                else:
+                    if line.count(':') == 0 or line.count(':') >= 2:
+                        raise PackageError(f'Function expression must have only one single ":".')
+                    else:
+                        split = line.split(':')
+                        actname = split[0].strip()
+                        args = split[1].strip()
+
+                        split_act = actname.split('->')
+                        act_pkg = split_act[0].strip()
+                        act_mdl = split_act[1].strip()
+
+                        if act_pkg == 'fwriter':
+                            if self.libs["fwriter"]:
+                                pass
+                            else:
+                                raise InternalError(f'fwriter package are not used.')
 
         except InternalError as ie:
             Funcs.ThrowError(ie, 'InternalError', line, num)

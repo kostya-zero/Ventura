@@ -1,5 +1,5 @@
 import sys, os
-from internal.exceptions import SyntaxError, PackageError, TypeError, MemoryError
+from internal.exceptions import SyntaxError, PackageError
 from internal.formater import Formater
 from internal.funcs import Funcs
 class Main:
@@ -13,10 +13,10 @@ class Main:
                 arg = Formater.ClearWhitespaces(arg)
                 arg = arg.strip('"')
                 arg = Formater.FormatString(arg)
-                print(arg, end='')
+                print(arg, '', '')
             elif arg.startswith('$'):
                 if arg in memory.keys():
-                    print(memory[arg], end='')
+                    print(memory[arg], '', '')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             else:
@@ -32,10 +32,10 @@ class Main:
                 arg = Formater.ClearWhitespaces(arg)
                 arg = arg.strip('"')
                 arg = Formater.FormatString(arg)
-                print(arg, end='\n')
+                print(arg, '', '\n')
             elif arg.startswith('$'):
                 if arg in memory.keys():
-                    print(memory[arg], end='\n')
+                    print(memory[arg], '', '\n')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             else:
@@ -121,6 +121,8 @@ class Main:
         if args.count(':') == 0 or args.count(':') >= 2:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
+            split = args.split(':')
+            var = split[1].strip()
             if var.startswith('$__'):
                 raise MemoryError(f'You cant use reserved variables.')
             elif var.startswith('$'):
