@@ -84,6 +84,7 @@ class Parser(object):
                         else: raise TypeError(f'Unknown expression -> {line}.')
                     else:
                         raise InternalError(f'Main package are not used.')
+
         except InternalError as ie:
             Funcs.ThrowError(ie, 'InternalError', line, num)
 

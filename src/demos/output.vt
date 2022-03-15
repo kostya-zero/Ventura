@@ -2,7 +2,6 @@
 ;prog_name "output"
 ;new $var
 ;entry
-    &sv: $var,"AMD64"
+    &sv: $var,$__cpuarch
     &out: "CPU Arch - "
-    &zero: $var
     &lnout: $var
