@@ -1,0 +1,8 @@
+;extend main
+;prog_name "output"
+;new $var
+;entry
+    &sv: $var,"AMD64"
+    &out: "CPU Arch - "
+    &zero: $var
+    &lnout: $var

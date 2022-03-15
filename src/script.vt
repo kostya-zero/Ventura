@@ -1,0 +1,4 @@
+;extend main
+;prog_name "script"
+;entry
+    &out: "Hello World!"
