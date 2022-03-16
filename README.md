@@ -1,4 +1,8 @@
 # Ventura
+![GitHub all releases](https://img.shields.io/github/downloads/kostya-zero/Ventura/total)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/kostya-zero/Ventura)
+![GitHub issues](https://img.shields.io/github/issues/kostya-zero/Ventura)
+
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
 Language are interpreted, and you can use it only on Windows platforms.
 No compilers, only runtime.
