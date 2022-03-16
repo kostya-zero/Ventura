@@ -5,7 +5,7 @@ sys.dont_write_bytecode = True
 from internal.parser import Parser
 
 app = {
-    "version": "1.0.0"
+    "version": "0.9"
 }
 
 vt_script = """;extend main
@@ -38,13 +38,18 @@ if len(sys.argv) == 1:
 else:
     arg = sys.argv[1]
     if arg.startswith('-'):
-        if arg == '-version':
+        if arg == '--help' or arg == '-h':
+            print('Ventura usage:')
+            print('ventura [path_to_file]')
+            print('')
+            print('Commands:')
+            print('--help, -h: Shows help.')
+            print('--version, -v: Version of Ventura.')
+            print('--generate-vt: Generates .vt file at location.')
+        elif arg == '--version' or arg == '-v':
             print(app["version"])
             sys.exit()
-        elif arg == '-path':
-            print(os.path.dirname(__file__))
-            sys.exit()
-        elif arg == '-generate-vt':
+        elif arg == '--generate-vt':
             path = input('Enter absolute path for new file: ')
             if os.path.isabs(path):
                 if os.path.exists(path):

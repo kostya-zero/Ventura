@@ -4,6 +4,7 @@ from .exceptions import *
 from .funcs import Funcs
 
 from libs.lib_main import Main
+from libs.lib_fwriter import fwriter
 
 class Parser(object):
     def __init__(self, filepath: str):
@@ -23,6 +24,7 @@ class Parser(object):
         }
         self.libs = {
             "main": False,
+            "text": False,
             "fwriter": False
         }
 
@@ -50,6 +52,8 @@ class Parser(object):
                             split = line.split(' ')
                             if split[1] == 'main':
                                 self.libs["main"] = True
+                            elif split[1] == 'text':
+                                self.libs["text"] = True
                             elif split[1] == 'fwriter':
                                 self.libs["fwriter"] = True
                             else:
@@ -111,9 +115,25 @@ class Parser(object):
 
                         if act_pkg == 'fwriter':
                             if self.libs["fwriter"]:
-                                pass
+                                if act_mdl == 'load': self.fwriter_file = fwriter.load(args, self.memory)
+                                elif act_mdl == 'wr': fwriter.wr(args, self.fwriter_file, self.memory)
+                                else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'fwriter package are not used.')
+                        elif act_pkg == 'text':
+                            if self.libs["text"]:
+                                if act_mdl == 'init': pass
+                                elif act_mdl == 'cls_all': pass
+                                elif act_mdl == 'cls_left': pass
+                                elif act_mdl == 'cls_right': pass
+                                elif act_mdl == 'replace': pass
+                                elif act_mdl == 'lower': pass
+                                elif act_mdl == 'upper': pass
+                                else: raise TypeError(f'Unknown expression -> {line}.')
+                            else:
+                                raise InternalError(f'text package are not used.')
+                        else:
+                            raise InternalError(f'Unknown package use -> {act_pkg}.')
 
         except InternalError as ie:
             Funcs.ThrowError(ie, 'InternalError', line, num)

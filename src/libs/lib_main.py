@@ -9,16 +9,14 @@ class Main:
         else:
             split = args.split(':')
             arg = split[1].strip()
-            if arg.startswith('"') and arg.endswith('"'):
-                arg = Formater.ClearWhitespaces(arg)
-                arg = arg.strip('"')
-                arg = Formater.FormatString(arg)
-                print(arg, '', '')
-            elif arg.startswith('$'):
-                if arg in memory.keys():
-                    print(memory[arg], '', '')
+            if Funcs.IsVar(arg):
+                if Funcs.CheckVar(arg):
+                    print(Funcs.GetVar(arg, memory), '', '')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
+            elif Funcs.IsText(arg):
+                arg = arg.strip('"')
+                print(arg, '', '')
             else:
                 raise TypeError('Bad argument format.')
 
@@ -28,16 +26,14 @@ class Main:
         else:
             split = args.split(':')
             arg = split[1].strip()
-            if arg.startswith('"') and arg.endswith('"'):
-                arg = Formater.ClearWhitespaces(arg)
-                arg = arg.strip('"')
-                arg = Formater.FormatString(arg)
-                print(arg, '', '\n')
-            elif arg.startswith('$'):
-                if arg in memory.keys():
-                    print(memory[arg], '', '\n')
+            if Funcs.IsVar(arg):
+                if Funcs.CheckVar(arg):
+                    print(Funcs.GetVar(arg, memory), '', '\n')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
+            elif Funcs.IsText(arg):
+                arg = arg.strip('"')
+                print(arg, '', '\n')
             else:
                 raise TypeError('Bad argument format.')
 
@@ -53,29 +49,24 @@ class Main:
                 split_arg = args2.split(',')
                 var = split_arg[0].strip()
                 new_value = split_arg[1].strip()
-                if var.startswith('$'):
-                    if var in memory.keys():
-                        if new_value.startswith('$'):
-                            if new_value in memory.keys():
+                if Funcs.IsVar(var):
+                    if Funcs.CheckVar(var, memory):
+                        if Funcs.IsVar(new_value):
+                            if Funcs.CheckVar(new_value, memory):
                                 memory[var] = memory[new_value]
                                 return memory
                             else:
                                 raise MemoryError(f'Variable are not registred -> {new_value}.')
-                        elif new_value.startswith('"') and new_value.endswith('"'):
+                        elif Funcs.IsText(new_value):
                             new_value = new_value.strip('"')
-                            new_value = Formater.FormatString(new_value)
                             memory[var] = new_value
                             return memory
-                        elif new_value.startswith('*'):
-                            new_value = new_value.lstrip('*')
-                            try: memory[var] = int(new_value)
-                            except: raise TypeError('New value are not number.')
                         else:
                             raise TypeError('Bad argument format.')
                     else:
                         raise MemoryError(f'Variable are not registred -> {var}.')
                 else:
-                    raise TypeError('No variable.')
+                    raise TypeError('Bad argument format.')
 
     def exit():
         sys.exit()
@@ -86,16 +77,15 @@ class Main:
         else:
             split = args.split(':')
             var = split[1].strip()
-            if var.startswith('$__'):
-                raise MemoryError(f'You cant delete reserved variables.')
-            elif var.startswith('$'):
-                if var in memory.keys():
+            if Funcs.IsVar(var):
+                if Funcs.CheckVar(var, memory):
                     memory.pop(var)
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {var}.')
             else:
-                raise MemoryError(f'Variable are not registred -> {var}.')
+                raise TypeError('Bad argument format.')
+
 
     def zero(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -103,16 +93,14 @@ class Main:
         else:
             split = args.split(':')
             var = split[1].strip()
-            if var.startswith('$__'):
-                raise MemoryError(f'You cant clear reserved variables.')
-            elif var.startswith('$'):
-                if var in memory.keys():
+            if Funcs.IsVar(var):
+                if Funcs.CheckVar(var, memory):
                     memory[var] = ''
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {var}.')
             else:
-                raise MemoryError(f'Variable are not registred -> {var}.')
+                raise TypeError('Bad argument format.')
 
     def wipe():
         os.system('cls')
@@ -123,33 +111,29 @@ class Main:
         else:
             split = args.split(':')
             var = split[1].strip()
-            if var.startswith('$__'):
-                raise MemoryError(f'You cant use reserved variables.')
-            elif var.startswith('$'):
-                if var in memory.keys():
+            if Funcs.IsVar(var):
+                if Funcs.CheckVar(var, memory):
                     memory[var] = input()
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {var}.')
             else:
-                raise MemoryError(f'Variable are not registred -> {var}.')
+                raise TypeError('Bad argument format.')
 
     def execute(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
-            arg = split[1].strip()
-            if arg.startswith('"') and arg.endswith('"'):
-                arg = Formater.ClearWhitespaces(arg)
-                arg = arg.strip('"')
-                arg = Formater.FormatString(arg)
-                os.system(arg)
-            elif arg.startswith('$'):
-                if arg in memory.keys():
-                    os.system(arg)
+            act = split[1].strip()
+            if Funcs.IsVar(act):
+                if Funcs.CheckVar(act, memory):
+                    os.system(memory[act])
                 else:
-                    raise MemoryError(f'Variable are not registred -> {arg}.')
+                    raise MemoryError(f'Variable are not registred -> {var}.')
+            elif Funcs.IsText(act):
+                act = act.strip('"')
+                os.system(act)
             else:
                 raise TypeError('Bad argument format.')
 
