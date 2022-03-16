@@ -1,2 +1,5 @@
 src/* linguist-documentation=false
 src/* linguist-vendored
+*.h linguist-language=C++
+*.cpp linguist-language=C++
+*.pyx linguist-language=Cython
