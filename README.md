@@ -27,6 +27,12 @@ To run Ventura on your system, your PC must match requirements:
 - **OS** - Windows 8 or above, Windows 7 are **not** recommended.
 - **CPU** - 64-bit CPU with AMD64 architecture.
 
+## Build Requirements 
+To build Ventura your environment must match requirements:
+- **Python** - 3.9 or 3.10 (we dont recommend to build it with 3.11)
+- **PIP** - Version 21.*.* and above.
+- **Packages** - PyInstaller, EasyCython and PIP.
+
 ## How to use it
 You can use installer or download portable version. 
 Installer, by default, set up your interpreter at Program Files directory. 
@@ -41,7 +47,7 @@ You must have this output:
 Ventura Interpreter
 ```
 
-# Generate .vt files
+## Generate .vt files
 Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
@@ -62,5 +68,5 @@ You can check directory for this file. Its include a very, very simple script.
     &out: "Hello World!"
 ```
 
-# Other Information
+## Other Information
 Remember, this programing language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
