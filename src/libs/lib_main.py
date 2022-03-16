@@ -11,12 +11,15 @@ class Main:
             arg = split[1].strip()
             if Funcs.IsVar(arg):
                 if Funcs.CheckVar(arg):
-                    print(Funcs.GetVar(arg, memory), '', '')
+                    to_print = Funcs.GetVar(arg, memory)
+                    to_print = Formater.FormatString(to_print)
+                    print(to_print, '', '')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             elif Funcs.IsText(arg):
-                arg = arg.strip('"')
-                print(arg, '', '')
+                to_print = arg.strip('"')
+                to_print = Formater.FormatString(to_print)
+                print(to_print, '', '')
             else:
                 raise TypeError('Bad argument format.')
 
@@ -28,12 +31,15 @@ class Main:
             arg = split[1].strip()
             if Funcs.IsVar(arg):
                 if Funcs.CheckVar(arg):
-                    print(Funcs.GetVar(arg, memory), '', '\n')
+                    to_print = Funcs.GetVar(arg, memory)
+                    to_print = Formater.FormatString(to_print)
+                    print(to_print, '', '\n')
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             elif Funcs.IsText(arg):
-                arg = arg.strip('"')
-                print(arg, '', '\n')
+                to_print = arg.strip('"')
+                to_print = Formater.FormatString(to_print)
+                print(to_print, '', '\n')
             else:
                 raise TypeError('Bad argument format.')
 
@@ -85,7 +91,6 @@ class Main:
                     raise MemoryError(f'Variable are not registred -> {var}.')
             else:
                 raise TypeError('Bad argument format.')
-
 
     def zero(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:

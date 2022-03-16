@@ -1,7 +1,0 @@
-;extend main
-;prog_name "output"
-;new $var
-;entry
-    &sv: $var,$__cpuarch
-    &out: "CPU Arch - "
-    &lnout: $var
