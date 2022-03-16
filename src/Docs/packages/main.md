@@ -7,7 +7,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Function to output data.
 - **Syntax:**
-```
+```ruby
 &out: {text|var}
 ```
 
@@ -15,7 +15,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Function to output data and start new line.
 - **Syntax:**
-```
+```ruby
 &lnout: {text|var}
 ```
 
@@ -23,7 +23,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Memory Managment
 - **Description** - Sets value to variable.
 - **Syntax:**
-```
+```ruby
 &sv: {var}, {text|var|num}
 ```
 
@@ -31,7 +31,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Ends session.
 - **Syntax:**
-```
+```ruby
 &exit
 ```
 
@@ -39,7 +39,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Memory Managment
 - **Description** - Deletes variable from memory.
 - **Syntax:**
-```
+```ruby
 &void: {var}
 ```
 
@@ -47,7 +47,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Memory Managment
 - **Description** - Makes variable value empty.
 - **Syntax:**
-```
+```ruby
 &zero: {var}
 ```
 
@@ -55,7 +55,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Clears console window.
 - **Syntax:**
-```
+```ruby
 &wipe
 ```
 
@@ -63,7 +63,7 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Gets input and puts it to a variable.
 - **Syntax:**
-```
+```ruby
 &get_in: {var}
 ```
 
@@ -71,6 +71,6 @@ All commands in **main** starts with **"&"** symbol.
 - **Type** - Basic Function
 - **Description** - Executes commands with OS shell.
 - **Syntax:**
-```
+```ruby
 &execute: {text|var}
 ```
