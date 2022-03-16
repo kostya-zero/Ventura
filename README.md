@@ -9,7 +9,7 @@ No compilers, only runtime.
 
 Ventura have syntax like **Pascal**. 
 Also, **"main"** package include basic commands. Below, example of syntax:
-```
+```ruby
 ;extend main
 ;prog_name "output"
 ;new $var
@@ -51,7 +51,7 @@ Ventura Interpreter
 Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
-```
+```ps
 ventura.py -generate-vt
 ```
 Now, you need to type an **absolute path** to file. 
@@ -61,7 +61,7 @@ Enter absolute path for new file: F:\script.vt
 Success! Script file was created by this path: F:\script.vt
 ```
 You can check directory for this file. Its include a very, very simple script.
-```
+```ruby
 ;extend main
 ;prog_name "script"
 ;entry
