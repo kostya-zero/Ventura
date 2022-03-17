@@ -1,5 +1,6 @@
-import os, sys
+import sys
 import internal.arch as arch
+import internal.args as args
 sys.dont_write_bytecode = True
 
 from internal.parser import Parser
@@ -20,38 +21,7 @@ if len(sys.argv) == 1:
 else:
     arg = sys.argv[1]
     if arg.startswith('-'):
-        if arg == '--help' or arg == '-h':
-            print('Ventura usage:')
-            print('ventura [path_to_file]')
-            print('')
-            print('Commands:')
-            print('--help, -h: Shows help.')
-            print('--version, -v: Version of Ventura.')
-            print('--generate-vt: Generates .vt file at location.')
-        elif arg == '--version' or arg == '-v':
-            print(app["version"])
-            sys.exit()
-        elif arg == '--generate-vt':
-            path = input('Enter absolute path for new file: ')
-            if os.path.isabs(path):
-                if os.path.exists(path):
-                    print('VENTURA: Element with this path already exists.')
-                    sys.exit()
-                elif not path.endswith('.vt'):
-                    print('VENTURA: File must have .vt extension.')
-                    sys.exit()
-                else:
-                    fp = open(path, 'w+')
-                    fp.write(vt_script)
-                    fp.close()
-                    print(f'Success! Script file was created by this path: {path}')
-                    sys.exit()
-            else:
-                print('VENTURA: Path is not absolute.')
-                sys.exit()
-        else:
-            print(f'VENTURA: Unknown argument: {arg}')
-            sys.exit()
+        args.resolve()
     else:
         if os.path.exists(arg):
             if os.path.isfile(arg):
