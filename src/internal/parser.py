@@ -123,7 +123,6 @@ class Parser(object):
                                 elif act_mdl == 'cls_all': self.memory = text.cls_all(args, self.memory)
                                 elif act_mdl == 'cls_left': self.memory = text.cls_left(args, self.memory)
                                 elif act_mdl == 'cls_right': self.memory = text.cls_right(args, self.memory)
-                                elif act_mdl == 'replace': self.memory = text.replace(args, self.memory)
                                 elif act_mdl == 'lower': self.memory = text.lower(args, self.memory)
                                 elif act_mdl == 'upper': self.memory = text.upper(args, self.memory)
                                 elif act_mdl == 'append_start': pass

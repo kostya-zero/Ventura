@@ -46,7 +46,11 @@ class text:
     def replace(args: str, memory: dict):
         if args.count(',') == 2:
             split = args.split(',')
-
+            var = split[0].strip()
+            new_v = split[2].strip()
+            old_v = split[1].strip()
+            if var.startswith('$') and Funcs.CheckVar(var):
+                pass # TODO: Complete this section
 
     def lower(args: str, memory: dict):
         if Funcs.IsVar(args):
@@ -67,3 +71,45 @@ class text:
                 raise MemoryError(f'Variable are not registred -> {args}.')
         else:
             raise TypeError('Bad argument format.')
+
+    def append_start(args: str, memory: dict):
+        if args.count(',') == 1:
+            split = args.split(',')
+            if Funcs.IsVar(split[0]):
+                if Funcs.CheckVar(split[0], memory):
+                    memory[split[0]] = Formater.Format(split[1]) + str(memory[split[0]])
+                    return memory
+                else:
+                    raise MemoryError(f'Variable are not registred -> {args}.')
+            else:
+                raise TypeError('Bad argument format.')
+        else:
+            raise TypeError('Function require 2 arguments.')
+
+    def append_end(args: str, memory: dict):
+        if args.count(',') == 1:
+            split = args.split(',')
+            if Funcs.IsVar(split[0]):
+                if Funcs.CheckVar(split[0], memory):
+                    memory[split[0]] = str(memory[split[0]]) + Formater.Format(split[1])
+                    return memory
+                else:
+                    raise MemoryError(f'Variable are not registred -> {args}.')
+            else:
+                raise TypeError('Bad argument format.')
+        else:
+            raise TypeError('Function require 2 arguments.')
+
+    def set(args: str, memory: dict):
+        if args.count(',') == 1:
+            split = args.split(',')
+            if Funcs.IsVar(split[0]):
+                if Funcs.CheckVar(split[0], memory):
+                    memory[split[0]] = Formater.Format(split[1])
+                    return memory
+                else:
+                    raise MemoryError(f'Variable are not registred -> {args}.')
+            else:
+                raise TypeError('Bad argument format.')
+        else:
+            raise TypeError('Function require 2 arguments.')

@@ -22,12 +22,8 @@ if architecture()[1] == 'WindowsPE':
 else:
     print('VENTURA: Unsupported Windows release.')
 
-if os.environ["PROCESSOR_ARCHITECTURE"] == 'AMD64':
-    if architecture()[0] == '64bit':
-        pass
-    else:
-        print('VENTURA: Architecture of CPU doesnt match requirements.')
-        sys.exit()
+if architecture()[0] == '64bit':
+    pass
 else:
     print('VENTURA: Architecture of CPU doesnt match requirements.')
     sys.exit()

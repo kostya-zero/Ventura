@@ -1,9 +1,18 @@
+from .funcs import Funcs
 class Formater:
     def ClearWhitespaces(text: str):
         text = text.strip()
         text = text.lstrip()
         text = text.rstrip()
         return text
+
+    def Format(text: str, memory: dict):
+        if Funcs.IsVar(text) and Funcs.CheckVar(text, memory):
+            return Funcs.GetVar(text, memory)
+        elif Funcs.IsText(text):
+            return text.strip('"')
+        else:
+            raise TypeError('Bad format.')
 
     def FormatString(text: str):
         text = text.replace('%10', ' ')
