@@ -39,7 +39,7 @@ To run Ventura on your system, your PC must match requirements:
 To build Ventura your environment must match requirements:
 - **Python** - 3.9 or 3.10 (we dont recommend to build it with 3.11)
 - **PIP** - Version 21.x.x and above.
-- **Packages** - PyInstaller, EasyCython and PIP.
+- **Packages** - PyInstaller, EasyCython, Cython and PIP.
 - **Other** - C++ compiler (G++ or VS Build Tools) and terminal.
 
 ## How to use it
