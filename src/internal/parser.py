@@ -5,6 +5,7 @@ from .funcs import Funcs
 
 from libs.lib_main import Main
 from libs.lib_fwriter import fwriter
+from libs.lib_text import text
 
 class Parser(object):
     def __init__(self, filepath: str):
@@ -24,8 +25,7 @@ class Parser(object):
         }
         self.libs = {
             "main": False,
-            "text": False,
-            "fwriter": False
+            "text": False
         }
 
         self.fwriter_file = ''
@@ -52,7 +52,6 @@ class Parser(object):
                             split = line.split(' ')
                             if split[1] == 'main': self.libs["main"] = True
                             elif split[1] == 'text': self.libs["text"] = True
-                            elif split[1] == 'fwriter': self.libs["fwriter"] = True
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith(';prog_name'):
@@ -106,18 +105,11 @@ class Parser(object):
                         actname = split[0].strip()
                         args = split[1].strip()
 
-                        split_act = actname.split('->')
+                        split_act = actname.split('.')
                         act_pkg = split_act[0].strip()
                         act_mdl = split_act[1].strip()
 
-                        if act_pkg == 'fwriter':
-                            if self.libs["fwriter"]:
-                                if act_mdl == 'load': self.fwriter_file = fwriter.load(args, self.memory)
-                                elif act_mdl == 'wr': fwriter.wr(args, self.fwriter_file, self.memory)
-                                else: raise TypeError(f'Unknown expression -> {line}.')
-                            else:
-                                raise InternalError(f'fwriter package are not used.')
-                        elif act_pkg == 'text':
+                        if act_pkg == 'text':
                             if self.libs["text"]:
                                 if act_mdl == 'init': self.memory = text.init(args, self.memory)
                                 elif act_mdl == 'cls_all': self.memory = text.cls_all(args, self.memory)
@@ -125,9 +117,9 @@ class Parser(object):
                                 elif act_mdl == 'cls_right': self.memory = text.cls_right(args, self.memory)
                                 elif act_mdl == 'lower': self.memory = text.lower(args, self.memory)
                                 elif act_mdl == 'upper': self.memory = text.upper(args, self.memory)
-                                elif act_mdl == 'append_start': pass
-                                elif act_mdl == 'append_end': pass
-                                elif act_mdl == 'set': pass
+                                elif act_mdl == 'append_start': self.memory = text.append_start(args, self.memory)
+                                elif act_mdl == 'append_end': self.memory = text.append_end(args, self.memory)
+                                elif act_mdl == 'set': self.memory = text.set(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'text package are not used.')

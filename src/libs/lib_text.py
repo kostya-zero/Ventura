@@ -77,7 +77,7 @@ class text:
             split = args.split(',')
             if Funcs.IsVar(split[0]):
                 if Funcs.CheckVar(split[0], memory):
-                    memory[split[0]] = Formater.Format(split[1]) + str(memory[split[0]])
+                    memory[split[0]] = Formater.Format(split[1], memory) + str(memory[split[0]])
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {args}.')
@@ -91,7 +91,7 @@ class text:
             split = args.split(',')
             if Funcs.IsVar(split[0]):
                 if Funcs.CheckVar(split[0], memory):
-                    memory[split[0]] = str(memory[split[0]]) + Formater.Format(split[1])
+                    memory[split[0]] = str(memory[split[0]]) + Formater.Format(split[1], memory)
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {args}.')
@@ -105,7 +105,7 @@ class text:
             split = args.split(',')
             if Funcs.IsVar(split[0]):
                 if Funcs.CheckVar(split[0], memory):
-                    memory[split[0]] = Formater.Format(split[1])
+                    memory[split[0]] = Formater.Format(split[1], memory)
                     return memory
                 else:
                     raise MemoryError(f'Variable are not registred -> {args}.')

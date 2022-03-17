@@ -10,7 +10,7 @@ class Main:
             split = args.split(':')
             arg = split[1].strip()
             if Funcs.IsVar(arg):
-                if Funcs.CheckVar(arg):
+                if Funcs.CheckVar(arg, memory):
                     to_print = Funcs.GetVar(arg, memory)
                     to_print = Formater.FormatString(to_print)
                     print(to_print, '', '')
@@ -135,7 +135,7 @@ class Main:
                 if Funcs.CheckVar(act, memory):
                     os.system(memory[act])
                 else:
-                    raise MemoryError(f'Variable are not registred -> {var}.')
+                    raise MemoryError(f'Variable are not registred -> {act}.')
             elif Funcs.IsText(act):
                 act = act.strip('"')
                 os.system(act)
