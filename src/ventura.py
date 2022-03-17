@@ -1,5 +1,5 @@
-from platform import architecture, node
 import os, sys
+import internal.arch as arch
 sys.dont_write_bytecode = True
 
 from internal.parser import Parser
@@ -13,21 +13,7 @@ vt_script = """;extend main
 ;entry
     &out: "Hello World!"
 """
-
-if architecture()[1] == 'WindowsPE':
-    if os.environ["OS"] == 'Windows_NT':
-        pass
-    else:
-        print('VENTURA: Unsupported Windows release.')
-else:
-    print('VENTURA: Unsupported Windows release.')
-
-if architecture()[0] == '64bit':
-    pass
-else:
-    print('VENTURA: Architecture of CPU doesnt match requirements.')
-    sys.exit()
-
+arch.CheckArch()
 if len(sys.argv) == 1:
     print('Ventura Interpreter')
     sys.exit()
