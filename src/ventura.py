@@ -1,4 +1,4 @@
-import sys
+import sys, os
 import internal.arch as arch
 import internal.args as args
 sys.dont_write_bytecode = True
