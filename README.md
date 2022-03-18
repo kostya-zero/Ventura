@@ -27,7 +27,7 @@
 **Activity:**
 ![GitHub last commit](https://img.shields.io/github/last-commit/kostya-zero/Ventura)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kostya-zero/Ventura)
-    
+
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
 Language are interpreted, and you can use it only on Windows platforms.
 No compilers, only runtime.
@@ -43,7 +43,7 @@ Also, **"main"** package include basic commands. Below, example of syntax:
     &out: "CPU Arch - "
     &lnout: $var
 ```
-Ventura developed on Python without any third-party packages. 
+Ventura developed on Python with Cython without any third-party packages. 
 Build with **PyInstaller** and **EasyCython**.
 Ventura have open source code and protected under **GNU GPL v3.0** license.
 
@@ -99,6 +99,14 @@ You can check directory for this file. Its include a very, very simple script.
 ;entry
     &out: "Hello World!"
 ```
+
+## Current status of Project
+At this moment we are trying to add new features to Ventura and update old.
+The second task is make code executes faster and rewrites the part of code on Cython.
+Also, docs are not finished. 
+Its important part of thi project.
+And, if you are using Ventura, we need your feedback!
+Create issue and tell us how you feels while developing on Ventura.
 
 ## Other Information
 Remember, this programing language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
