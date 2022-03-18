@@ -4,7 +4,7 @@ from .exceptions import *
 from .funcs import Funcs
 
 from libs.lib_main import Main
-from libs.lib_fwriter import fwriter
+from libs.lib_fstream import fstream
 from libs.lib_text import text
 
 class Parser(object):
@@ -25,12 +25,9 @@ class Parser(object):
         }
         self.libs = {
             "main": False,
-            "text": False
+            "text": False,
+            "fstream": False
         }
-
-        self.fwriter_file = ''
-
-        self.illegal_symb = ['@', '#', '%', '^', '&', '*', '!']
 
         self.prog_name = ''
         self.prog_start = False
@@ -52,6 +49,7 @@ class Parser(object):
                             split = line.split(' ')
                             if split[1] == 'main': self.libs["main"] = True
                             elif split[1] == 'text': self.libs["text"] = True
+                            elif split[1] == 'fstream': self.libs["fstream"] = True
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith(';prog_name'):
@@ -123,6 +121,16 @@ class Parser(object):
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'text package are not used.')
+                        elif act_pkg == 'fstream':
+                            if self.libs["fstream"]:
+                                if act_mdl == 'create': fstream.create(args, self.memory)
+                                elif act_mdl == 'read': self.memory = fstream.read(args, self.memory)
+                                elif act_mdl == 'wr': fstream.wr(args, self.memory)
+                                elif act_mdl == 'wra': fstream.wra(args, self.memory)
+                                elif act_mdl == 'remove': fstream.remove(args, self.memory)
+                                else: raise TypeError(f'Unknown expression -> {line}.')
+                            else:
+                                raise InternalError(f'fstream package are not used.')
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}.')
 

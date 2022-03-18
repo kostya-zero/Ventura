@@ -6,7 +6,7 @@ from internal.parser import Parser
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter')
+    print('Ventura Interpreter 1.0 Build 29')
     sys.exit()
 else:
     args.resolve()
@@ -14,7 +14,6 @@ else:
     if os.path.exists(arg):
         if os.path.isfile(arg):
             if os.path.basename(arg).endswith('.vt'):
-
                 pr = Parser(arg)
                 fp = open(arg, 'r')
                 lines = fp.readlines()

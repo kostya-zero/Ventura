@@ -1,11 +1,7 @@
 ;extend main
-;extend text
+;extend fstream
 ;prog_name "script"
 ;new $test
 ;entry
-    text.init:$test
-    text.set:$test,"Hello!"
-    &out:$test
-    text.set:$test,"Hi!"
-    &out:$test
+    fstream.create:"test.tt"
 

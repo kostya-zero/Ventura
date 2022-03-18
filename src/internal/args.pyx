@@ -3,7 +3,7 @@ import os
 cpdef resolve():
     cdef str arg = sys.argv[1]
     if arg == '-v':
-        print('0.9')
+        print('1.0')
         sys.exit(0)
     elif arg == '-gvt':
         path = input('Enter absolute path for new file: ')
