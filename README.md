@@ -9,6 +9,7 @@
     <img src="https://img.shields.io/github/license/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/stars/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/forks/kostya-zero/Ventura"/>
+    <img src="https://img.shields.io/badge/support%20windows-7%20%7C%208%20%7C%208.1%20%7C%2010%20%7C%2011-green"/>
 </p>
     
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
