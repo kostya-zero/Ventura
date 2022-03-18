@@ -4,15 +4,29 @@
 
 <p align="center">
     <img src="https://img.shields.io/github/downloads/kostya-zero/Ventura/total"/>
-    <img src="https://img.shields.io/github/issues/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/v/release/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/license/kostya-zero/Ventura"/>
-    <img src="https://img.shields.io/github/stars/kostya-zero/Ventura"/>
-    <img src="https://img.shields.io/github/forks/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/badge/support%20windows-7%20%7C%208%20%7C%208.1%20%7C%2010%20%7C%2011-green"/>
 </p>
 
-**Languages**: ![GitHub language count](https://img.shields.io/github/languages/count/kostya-zero/Ventura) ![GitHub top language](https://img.shields.io/github/languages/top/kostya-zero/Ventura)
+**Issues/Pull requests:**
+![GitHub issues](https://img.shields.io/github/issues/kostya-zero/Ventura)
+![GitHub issues](https://img.shields.io/github/issues-raw/kostya-zero/Ventura)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/kostya-zero/Ventura)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/kostya-zero/Ventura)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/kostya-zero/Ventura)
+
+**Stats:**
+[![GitHub stars](https://img.shields.io/github/stars/kostya-zero/Ventura)](https://github.com/kostya-zero/Ventura/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kostya-zero/Ventura)](https://github.com/kostya-zero/Ventura/network)
+
+**Languages**: 
+![GitHub language count](https://img.shields.io/github/languages/count/kostya-zero/Ventura) 
+![GitHub top language](https://img.shields.io/github/languages/top/kostya-zero/Ventura)
+
+**Activity:**
+![GitHub last commit](https://img.shields.io/github/last-commit/kostya-zero/Ventura)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kostya-zero/Ventura)
     
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
 Language are interpreted, and you can use it only on Windows platforms.
