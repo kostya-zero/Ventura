@@ -49,8 +49,10 @@ Portable version you can place where you want.
 
 To check if it works correctly, try to execute it with command prompt:
 ```
-ventura.exe
+ventura
 ```
+If you use installer, you can call Ventura from terminal.
+Installer adds Ventura folder to "Path" variable.
 You must have this output:
 ```
 Ventura Interpreter
@@ -61,7 +63,7 @@ Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
 ```ps
-ventura.py -generate-vt
+ventura -gvt
 ```
 Now, you need to type an **absolute path** to file. 
 Just type it in dialog:
