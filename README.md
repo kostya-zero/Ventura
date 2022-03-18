@@ -11,6 +11,8 @@
     <img src="https://img.shields.io/github/forks/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/badge/support%20windows-7%20%7C%208%20%7C%208.1%20%7C%2010%20%7C%2011-green"/>
 </p>
+
+- **Languages** - ![GitHub language count](https://img.shields.io/github/languages/count/kostya-zero/Ventura)
     
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
 Language are interpreted, and you can use it only on Windows platforms.
