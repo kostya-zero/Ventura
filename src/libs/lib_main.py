@@ -1,6 +1,6 @@
 import sys, os
 from internal.exceptions import SyntaxError, PackageError
-from internal.formater import Formater
+import internal.formater as Formater
 from internal.funcs import Funcs
 funcs = Funcs()
 class Main:

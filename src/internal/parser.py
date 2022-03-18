@@ -1,5 +1,5 @@
 import platform, os, getpass
-from .formater import Formater
+import internal.formater as Formater
 from .exceptions import *
 from .funcs import Funcs
 
