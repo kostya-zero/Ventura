@@ -1,0 +1,11 @@
+;extend main
+;extend text
+;prog_name "script"
+;new $test
+;entry
+    text.init:$test
+    text.set:$test,"Hello!"
+    &out:$test
+    text.set:$test,"Hi!"
+    &out:$test
+
