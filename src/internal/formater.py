@@ -1,4 +1,5 @@
 from .funcs import Funcs
+funcs = Funcs()
 class Formater:
     def ClearWhitespaces(text: str):
         text = text.strip()
@@ -7,9 +8,9 @@ class Formater:
         return text
 
     def Format(text: str, memory: dict):
-        if Funcs.IsVar(text) and Funcs.CheckVar(text, memory):
-            return Funcs.GetVar(text, memory)
-        elif Funcs.IsText(text):
+        if funcs.IsVar(text) and funcs.CheckVar(text, memory):
+            return funcs.GetVar(text, memory)
+        elif funcs.IsText(text):
             return text.strip('"')
         else:
             raise TypeError('Bad format.')

@@ -4,7 +4,7 @@ cpdef resolve():
     cdef str arg = sys.argv[1]
     if arg == '-v':
         print('0.9')
-        exit(0)
+        sys.exit(0)
     elif arg == '-gvt':
         path = input('Enter absolute path for new file: ')
         if os.path.isabs(path):

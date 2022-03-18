@@ -2,10 +2,11 @@ import sys, os
 from internal.exceptions import SyntaxError, PackageError
 from internal.formater import Formater
 from internal.funcs import Funcs
+funcs = Funcs()
 class text:
     def init(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = ''
                 return memory
             else:
@@ -14,8 +15,8 @@ class text:
             raise TypeError('Bad argument format.')
 
     def cls_all(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = str(memory[args]).strip()
                 return memory
             else:
@@ -24,8 +25,8 @@ class text:
             raise TypeError('Bad argument format.')
 
     def cls_left(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = str(memory[args]).lstrip()
                 return memory
             else:
@@ -34,8 +35,8 @@ class text:
             raise TypeError('Bad argument format.')
 
     def cls_right(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = str(memory[args]).rstrip()
                 return memory
             else:
@@ -49,12 +50,12 @@ class text:
             var = split[0].strip()
             new_v = split[2].strip()
             old_v = split[1].strip()
-            if var.startswith('$') and Funcs.CheckVar(var):
+            if var.startswith('$') and funcs.CheckVar(var):
                 pass # TODO: Complete this section
 
     def lower(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = str(memory[args]).lower()
                 return memory
             else:
@@ -63,8 +64,8 @@ class text:
             raise TypeError('Bad argument format.')
 
     def upper(args: str, memory: dict):
-        if Funcs.IsVar(args):
-            if Funcs.CheckVar(args, memory):
+        if funcs.IsVar(args):
+            if funcs.CheckVar(args, memory):
                 memory[args] = str(memory[args]).upper()
                 return memory
             else:
@@ -75,8 +76,8 @@ class text:
     def append_start(args: str, memory: dict):
         if args.count(',') == 1:
             split = args.split(',')
-            if Funcs.IsVar(split[0]):
-                if Funcs.CheckVar(split[0], memory):
+            if funcs.IsVar(split[0]):
+                if funcs.CheckVar(split[0], memory):
                     memory[split[0]] = Formater.Format(split[1], memory) + str(memory[split[0]])
                     return memory
                 else:
@@ -89,8 +90,8 @@ class text:
     def append_end(args: str, memory: dict):
         if args.count(',') == 1:
             split = args.split(',')
-            if Funcs.IsVar(split[0]):
-                if Funcs.CheckVar(split[0], memory):
+            if funcs.IsVar(split[0]):
+                if funcs.CheckVar(split[0], memory):
                     memory[split[0]] = str(memory[split[0]]) + Formater.Format(split[1], memory)
                     return memory
                 else:
@@ -103,8 +104,8 @@ class text:
     def set(args: str, memory: dict):
         if args.count(',') == 1:
             split = args.split(',')
-            if Funcs.IsVar(split[0]):
-                if Funcs.CheckVar(split[0], memory):
+            if funcs.IsVar(split[0]):
+                if funcs.CheckVar(split[0], memory):
                     memory[split[0]] = Formater.Format(split[1], memory)
                     return memory
                 else:
