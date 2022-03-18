@@ -12,7 +12,7 @@ Function can output only text type.
 Also, you can type name of variable, but it must have text type value.
 
 ```
-;entry main
+;extend main
 ;prog_name "output_demo"
 ;entry
     >> Outputs data on current line
@@ -26,7 +26,7 @@ By the way, Ventura **supports comment strings**.
 To identify this like a comment string, add **">>"** prefix, like in example below:
 
 ```
-;entry main
+;extend main
 ;prog_name "comments_demo"
 ;entry
     >> This is a comment string.
@@ -39,7 +39,7 @@ Package include functions to manage variable value.
 It works for every type of variables, text or number.
 
 ```
-;entry main
+;extend main
 ;prog_name "set_demo"
 ;new $word
 ;entry
@@ -52,10 +52,45 @@ And, you can receive value from user.
 It receives data from user and adds it to variable of text type.
 
 ```
-;entry main
+;extend main
 ;prog_name "input_demo"
 ;new $word
 ;entry
+    &get_in: $word
+    &out: $word
+```
+
+## More memory managment
+Main package also include functions to clear and fully delete variables from memory blocks.
+&zero sets variable null value. 
+&void deletes variable from memory blocks.
+Lets see how it works in example below.
+
+```
+;extend main
+;prog_name "zero_demo"
+;new $word
+;entry
+    &out: "Type something%19 "
+    &get_in: $word
+    &zero: $word
+    &out: "We forgot what you typed! Type it again&19 "
+    &get_in: $word
+    &out: $word
+```
+
+Good! Now, you see how &zero functions work. 
+Lets try this script again, but use &void.
+
+```
+;extend main
+;prog_name "zero_demo"
+;new $word
+;entry
+    &out: "Type something%19 "
+    &get_in: $word
+    &void: $word
+    &out: "We forgot what you typed! Type it again&19 "
     &get_in: $word
     &out: $word
 ```

@@ -7,6 +7,8 @@ from libs.lib_main import Main
 from libs.lib_fstream import fstream
 from libs.lib_text import text
 
+Funcs = Funcs()
+
 class Parser(object):
     def __init__(self, filepath: str):
         self.memory = {
@@ -135,16 +137,16 @@ class Parser(object):
                             raise InternalError(f'Unknown package use -> {act_pkg}.')
 
         except InternalError as ie:
-            Funcs.ThrowError(ie, 'InternalError', line, num)
+            Funcs.ThrowError(str(ie), 'InternalError', line, num)
 
         except ExtendError as ee:
-            Funcs.ThrowError(ee, 'ExtendError', line, num)
+            Funcs.ThrowError(str(ee), 'ExtendError', line, num)
 
         except TypeError as te:
-            Funcs.ThrowError(te, 'TypeError', line, num)
+            Funcs.ThrowError(str(te), 'TypeError', line, num)
 
         except MemoryError as me:
-            Funcs.ThrowError(me, 'MemoryError', line, num)
+            Funcs.ThrowError(str(me), 'MemoryError', line, num)
 
         except PackageError as pe:
-            Funcs.ThrowError(pe, 'PackageError', line, num)
+            Funcs.ThrowError(str(pe), 'PackageError', line, num)

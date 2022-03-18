@@ -1,5 +1,5 @@
 import sys, os
-from internal.exceptions import SyntaxError, PackageError
+from internal.exceptions import SyntaxError, PackageError, MemoryError, TypeError
 import internal.formater as Formater
 from internal.funcs import Funcs
 funcs = Funcs()
