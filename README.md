@@ -45,6 +45,10 @@ To build Ventura your environment must match requirements:
 ## How to use it
 You can use installer or download portable version. 
 Installer, by default, set up your interpreter at Program Files directory. 
+Default directory:
+```
+C:\Program Files\ZERO\Ventura\Ventura09b
+```
 Portable version you can place where you want.
 
 To check if it works correctly, try to execute it with command prompt:
