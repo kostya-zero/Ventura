@@ -6,7 +6,7 @@ from internal.parser import Parser
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter 1.0 Build 29')
+    print('Ventura Interpreter 1.1 Build 29')
     sys.exit()
 else:
     args.resolve()

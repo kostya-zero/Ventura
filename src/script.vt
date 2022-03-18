@@ -1,7 +1,5 @@
 ;extend main
-;extend fstream
 ;prog_name "script"
-;new $test
 ;entry
-    fstream.create:"test.tt"
+    &out: "Hello World!"
 
