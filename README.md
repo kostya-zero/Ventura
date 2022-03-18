@@ -9,7 +9,10 @@
     <img src="https://img.shields.io/github/license/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/stars/kostya-zero/Ventura"/>
     <img src="https://img.shields.io/github/forks/kostya-zero/Ventura"/>
+    <img src="https://img.shields.io/badge/support%20windows-7%20%7C%208%20%7C%208.1%20%7C%2010%20%7C%2011-green"/>
 </p>
+
+**Languages**: ![GitHub language count](https://img.shields.io/github/languages/count/kostya-zero/Ventura) ![GitHub top language](https://img.shields.io/github/languages/top/kostya-zero/Ventura)
     
 Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
 Language are interpreted, and you can use it only on Windows platforms.
@@ -39,17 +42,24 @@ To run Ventura on your system, your PC must match requirements:
 To build Ventura your environment must match requirements:
 - **Python** - 3.9 or 3.10 (we dont recommend to build it with 3.11)
 - **PIP** - Version 21.x.x and above.
-- **Packages** - PyInstaller, EasyCython and PIP.
+- **Packages** - PyInstaller, EasyCython, Cython and PIP.
+- **Other** - C++ compiler (G++ or VS Build Tools) and terminal.
 
 ## How to use it
 You can use installer or download portable version. 
 Installer, by default, set up your interpreter at Program Files directory. 
+Default directory:
+```
+C:\Program Files\ZERO\Ventura\Ventura09b
+```
 Portable version you can place where you want.
 
 To check if it works correctly, try to execute it with command prompt:
 ```
-ventura.exe
+ventura
 ```
+If you use installer, you can call Ventura from terminal.
+Installer adds Ventura folder to "Path" variable.
 You must have this output:
 ```
 Ventura Interpreter
@@ -60,7 +70,7 @@ Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
 ```ps
-ventura.py -generate-vt
+ventura -gvt
 ```
 Now, you need to type an **absolute path** to file. 
 Just type it in dialog:
