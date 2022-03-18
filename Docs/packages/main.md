@@ -11,7 +11,7 @@ Basic function of this package is **&out** and **&lnout**.
 Function can output only text type.
 Also, you can type name of variable, but it must have text type value.
 
-```
+```ruby
 ;extend main
 ;prog_name "output_demo"
 ;entry
@@ -25,7 +25,7 @@ In this example we had printed text to console window.
 By the way, Ventura **supports comment strings**. 
 To identify this like a comment string, add **">>"** prefix, like in example below:
 
-```
+```ruby
 ;extend main
 ;prog_name "comments_demo"
 ;entry
@@ -38,7 +38,7 @@ Package include functions to manage variable value.
 **&sv** sets a new value to variable.
 It works for every type of variables, text or number.
 
-```
+```ruby
 ;extend main
 ;prog_name "set_demo"
 ;new $word
@@ -51,7 +51,7 @@ And, you can receive value from user.
 **&get_in** made for it.
 It receives data from user and adds it to variable of text type.
 
-```
+```ruby
 ;extend main
 ;prog_name "input_demo"
 ;new $word
@@ -66,7 +66,7 @@ Main package also include functions to clear and fully delete variables from mem
 &void deletes variable from memory blocks.
 Lets see how it works in example below.
 
-```
+```ruby
 ;extend main
 ;prog_name "zero_demo"
 ;new $word
@@ -82,7 +82,7 @@ Lets see how it works in example below.
 Good! Now, you see how &zero functions work. 
 Lets try this script again, but use &void.
 
-```
+```ruby
 ;extend main
 ;prog_name "zero_demo"
 ;new $word
