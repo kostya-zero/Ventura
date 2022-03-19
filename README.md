@@ -32,8 +32,9 @@ Ventura is a scripting programing language that's allows you to make small scrip
 Language are interpreted, and you can use it only on Windows platforms.
 No compilers, only runtime.
 
-Ventura have syntax like **Pascal**. 
-Also, **"main"** package include basic commands. Below, example of syntax:
+Ventura have syntax like **Pascal** and **Python** (partially). 
+Also, **"main"** package include basic commands. 
+Below, example of syntax:
 ```ruby
 ;extend main
 ;prog_name "output"
@@ -64,7 +65,7 @@ You can use installer or download portable version.
 Installer, by default, set up your interpreter at Program Files directory. 
 Default directory:
 ```
-C:\Program Files\ZERO\Ventura\Ventura09b
+C:\Program Files(x86)\ZERO\Ventura\
 ```
 Portable version you can place where you want.
 
