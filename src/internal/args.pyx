@@ -4,11 +4,6 @@ import platform
 cpdef resolve(arg: str):
     if arg == '-V' or arg == '--version':
         print('1.1-preview // Build 42')
-        print('Usage of interpreter:')
-        print('ventura [path_to_file]')
-        print('or')
-        print('ventura [option]')
-        print('To show help, write "ventura -H" or "ventura --help" to the command line.')
         sys.exit(0)
     elif arg == '-gvt' or arg == '--generate-vt':
         path = input('Enter absolute path for new file: ')
