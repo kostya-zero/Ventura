@@ -11,6 +11,12 @@ except Exception as ex:
 arch.CheckArch()
 if len(sys.argv) == 1:
     print('Ventura Interpreter 1.1 Preview Build 42')
+    print('')
+    print('Usage of interpreter:')
+    print('ventura [path_to_file]')
+    print('or')
+    print('ventura [option]')
+    print('To show help, write "ventura -H" or "ventura --help" to the command line.')
     sys.exit()
 else:
     arg = sys.argv[1]
