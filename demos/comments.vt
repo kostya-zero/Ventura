@@ -1,0 +1,12 @@
+;extend main
+;prog_name "comments"
+;entry
+    >> Ventura supports comment strings.
+    >> Parser ignore this lines.
+    >> Each comment line must starts with ">>".
+    >> &out: "Hello world!"
+    >> Line above will not be executed, because line is a comment.
+    >> Lets write this again without arrows.
+    &out: "Hello world!"
+    >> Boom! Line executed!
+    >> You can use comment strings only on new line.

@@ -1,16 +1,20 @@
-import sys, os
-import internal.arch as arch
-import internal.args as args
-sys.dont_write_bytecode = True
-from internal.parser import Parser
+try:
+    import sys, os, time
+    import internal.arch as arch
+    import internal.args as args
+    sys.dont_write_bytecode = True
+    from internal.parser import Parser
+except Exception as ex:
+    print('Ventura got an exceptions while starting.')
+    print('Exception: ' + ex)
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter 1.1 Build 29')
+    print('Ventura Interpreter 1.1 Preview Build 42')
     sys.exit()
 else:
-    args.resolve()
     arg = sys.argv[1]
+    args.resolve(arg)
     if os.path.exists(arg):
         if os.path.isfile(arg):
             if os.path.basename(arg).endswith('.vt'):
@@ -18,7 +22,13 @@ else:
                 fp = open(arg, 'r')
                 lines = fp.readlines()
                 fp.close()
+                scr_start = time.time()
                 pr.Parse(lines)
+                scr_end = time.time()
+                print('')
+                print('-------------------------------------')
+                print('Ventura ended work. Script are ended.')
+                print('Total working time: ' + str(scr_end - scr_start) + '.')
             else:
                 print(f'VENTURA: Ventura can execute only .vt files.')
         else:

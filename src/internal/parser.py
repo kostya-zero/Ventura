@@ -1,11 +1,14 @@
 import platform, os, getpass
 import internal.formater as Formater
-from .exceptions import *
+from .exceptions import InternalError, SyntaxError, PackageError, TypeError, MemoryError, ExtendError
 from .funcs import Funcs
+import internal.logic as Logic
 
 from libs.lib_main import Main
 from libs.lib_fstream import fstream
 from libs.lib_text import text
+from libs.lib_shell import Shell
+import libs.lib_console as console
 
 Funcs = Funcs()
 
@@ -28,11 +31,15 @@ class Parser(object):
         self.libs = {
             "main": False,
             "text": False,
-            "fstream": False
+            "fstream": False,
+            "console": False,
+            "shell": False
         }
 
         self.prog_name = ''
         self.prog_start = False
+        self.prog_ignore = False
+        self.prog_inloop = False
 
 
     def Parse(self, lines: list):
@@ -43,6 +50,22 @@ class Parser(object):
                 line = Formater.ClearWhitespaces(line)
                 if line == '':
                     pass
+                elif line.startswith('@close'):
+                    if self.prog_inloop:
+                        self.prog_ignore = False
+                        self.prog_inloop = False
+                    else:
+                        raise InternalError('You havent been in a loop.')
+                elif line.startswith('@'):
+                    if self.prog_inloop == True:
+                        raise InternalError('You havent exited the loop')
+                    elif Logic.resolve(line, self.memory):
+                        self.prog_inloop = True
+                    else:
+                        self.prog_inloop = True
+                        self.prog_ignore = True
+                elif self.prog_ignore:
+                    pass
                 elif line.startswith('>>'):
                     pass
                 elif line.startswith(';'):
@@ -52,6 +75,8 @@ class Parser(object):
                             if split[1] == 'main': self.libs["main"] = True
                             elif split[1] == 'text': self.libs["text"] = True
                             elif split[1] == 'fstream': self.libs["fstream"] = True
+                            elif split[1] == 'console': self.libs["console"] = True
+                            elif split[1] == 'shell': self.libs["shell"] = True
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith(';prog_name'):
@@ -133,6 +158,23 @@ class Parser(object):
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'fstream package are not used.')
+                        elif act_pkg == 'console':
+                            if self.libs["console"]:
+                                if act_mdl == 'write': console.write(args, self.memory)
+                                elif act_mdl == 'clear': console.clear()
+                                elif act_mdl == 'message': console.message(args, self.memory)
+                                elif act_mdl == 'error': console.error(args, self.memory)
+                                elif act_mdl == 'warning': console.warning(args, self.memory)
+                                else: raise TypeError(f'Unknown expression -> {line}.')
+                            else:
+                                raise InternalError(f'console package are not used.')
+                        elif act_pkg == 'shell':
+                            if self.libs["shell"]:
+                                if act_mdl == 'execute': Shell.execute(args, self.memory)
+                                elif act_mdl == 'start_cmd': Shell.start_cmd()
+                                elif act_mdl == 'start_ps': Shell.start_ps()
+                            else:
+                                raise InternalError(f'shell package are not used.')
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}.')
 

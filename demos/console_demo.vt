@@ -1,0 +1,6 @@
+;extend main
+;extend console
+;prog_name "console_demo"
+;entry
+    >> console is a library written on Cython.
+    >> console works more faster as &out from

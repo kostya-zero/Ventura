@@ -1,10 +1,14 @@
 import sys
 import os
 import platform
-cpdef resolve():
-    cdef str arg = sys.argv[1]
+cpdef resolve(arg: str):
     if arg == '-V' or arg == '--version':
-        print('1.1')
+        print('1.1-preview // Build 42')
+        print('Usage of interpreter:')
+        print('ventura [path_to_file]')
+        print('or')
+        print('ventura [option]')
+        print('To show help, write "ventura -H" or "ventura --help" to the command line.')
         sys.exit(0)
     elif arg == '-gvt' or arg == '--generate-vt':
         path = input('Enter absolute path for new file: ')
@@ -39,13 +43,15 @@ cpdef resolve():
         print(f'CPU Identifier: {os.environ["PROCESSOR_IDENTIFIER"]}')
         sys.exit()
     elif arg == '-H' or arg == '--help':
-        print('Ventura usage:')
+        print('Usage of interpreter:')
         print('ventura [path_to_file]')
+        print('or')
+        print('ventura [option]')
         print('')
-        print('Commands:')
+        print('Options:')
         print('-H, --help: Shows help.')
         print('-V, --version: Version of Ventura.')
         print('-A, --authors: Shows authors of Ventura.')
         print('-S, --system: Shows info about current machine.')
-        print('-gvt: Generates .vt file at location.')
+        print('-gvt, --generate-vt: Generates .vt file at location.')
         sys.exit()

@@ -1,0 +1,17 @@
+;extend main
+;extend text
+;prog_name "if_demo"
+;new $name
+;entry
+    &out:"Whats your name? %19"
+    &get_in:$name
+    text.cls_all:$name
+
+    @if_equals:$name,""
+        &out:"You havent typed your name!"
+    @close
+
+    @if_notequalse:$name,""
+        &out:"Hello! "
+        &out:$name
+    @close

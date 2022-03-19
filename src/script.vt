@@ -4,7 +4,7 @@
 ;entry
     &out: "Type something%19 "
     &get_in: $word
-    &void: $word
+    &zero: $word
     &out: "We forgot what you typed! Type it again%19 "
     &get_in: $word
     &out: $word

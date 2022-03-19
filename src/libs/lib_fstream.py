@@ -34,6 +34,7 @@ class fstream:
             splt = args.split(',')
             path = splt[0].strip()
             var = splt[1].strip()
+
             if Funcs.IsVar(path) and Funcs.CheckVar(path, memory):
                 path = memory[path]
             else:
@@ -46,6 +47,32 @@ class fstream:
                 raise TypeError(f'Variable not registred or bad format -> {var}.')
 
             fp = open(path, 'r')
+            cont = fp.read()
+            fp.close()
+            memory[var] = cont
+            return memory
+        else:
+            raise TypeError('Function require 2 arguments')
+
+    def read_utf8(args: str, memory: dict):
+        args = args.strip()
+        if args.count(',') == 1:
+            splt = args.split(',')
+            path = splt[0].strip()
+            var = splt[1].strip()
+
+            if Funcs.IsVar(path) and Funcs.CheckVar(path, memory):
+                path = memory[path]
+            else:
+                path = path.strip('"')
+                path = Formater.FormatString(path)
+
+            if Funcs.IsVar(var) and Funcs.CheckVar(var, memory):
+                pass
+            else:
+                raise TypeError(f'Variable not registred or bad format -> {var}.')
+
+            fp = open(path, 'r', encoding='UTF-8')
             cont = fp.read()
             fp.close()
             memory[var] = cont
@@ -100,7 +127,3 @@ class fstream:
             fp.close()
         else:
             raise TypeError('Function require 2 arguments')
-
-
-
-

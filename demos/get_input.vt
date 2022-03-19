@@ -1,0 +1,10 @@
+;extend main
+;prog_name "output"
+;new $input
+;entry
+    >> Now, we need to get input from user.
+    &out:"Type something%19"
+    >> Get input from user.
+    &get_in:$input
+    >> Lets show what he typed.
+    &out:$input

@@ -10,9 +10,7 @@ cdef class Funcs:
         sys.exit()
 
     cpdef CheckVar(self, str var, dict memory):
-        if var.startswith('$__'):
-            raise MemoryError(f'You cant use reserved variables.')
-        elif var.startswith('$'):
+        if var.startswith('$'):
             if var in memory.keys():
                 return True
             else:

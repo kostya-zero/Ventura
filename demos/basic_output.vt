@@ -1,5 +1,5 @@
 ;extend main
 ;prog_name "output"
 ;entry
-    &out:"Hello World!"
-	&exit
+    &out:"Hello!"
+    &out:"Hello!"

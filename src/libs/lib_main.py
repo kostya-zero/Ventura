@@ -14,13 +14,13 @@ class Main:
                 if funcs.CheckVar(arg, memory):
                     to_print = funcs.GetVar(arg, memory)
                     to_print = Formater.FormatString(to_print)
-                    print(to_print, '', '')
+                    print(to_print)
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             elif funcs.IsText(arg):
                 to_print = arg.strip('"')
                 to_print = Formater.FormatString(to_print)
-                print(to_print, '', '')
+                print(to_print)
             else:
                 raise TypeError('Bad argument format.')
 
@@ -34,13 +34,13 @@ class Main:
                 if funcs.CheckVar(arg):
                     to_print = funcs.GetVar(arg, memory)
                     to_print = Formater.FormatString(to_print)
-                    print(to_print, '', '\n')
+                    print(to_print)
                 else:
                     raise MemoryError(f'Variable are not registred -> {arg}.')
             elif funcs.IsText(arg):
                 to_print = arg.strip('"')
                 to_print = Formater.FormatString(to_print)
-                print(to_print, '', '\n')
+                print(to_print)
             else:
                 raise TypeError('Bad argument format.')
 
@@ -142,4 +142,3 @@ class Main:
                 os.system(act)
             else:
                 raise TypeError('Bad argument format.')
-
