@@ -51,7 +51,7 @@ info = [
 arch.CheckArch()
 if len(sys.argv) == 1:
     for info in info:
-    print(info)
+        print(info)
     sys.exit()
 else:
     arg = sys.argv[1]
