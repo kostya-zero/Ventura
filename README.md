@@ -28,9 +28,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/kostya-zero/Ventura)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kostya-zero/Ventura)
 
-Ventura is a scripting programing language that's allows you to make small scripts and execute it. 
-Language are interpreted, and you can use it only on Windows platforms.
-No compilers, only runtime.
+Ventura - interpreted scripting programming language developed on Python with Cython code.
+Interpreter allows you to create and write scripts, execute it on 64-bit systems with installed Windows OS.
+Scripts can be executed only with runtime, you don't any third-party software.
 
 Ventura have syntax like **Pascal** and **Python** (partially). 
 Also, **"main"** package include basic commands. 
@@ -60,31 +60,54 @@ To build Ventura your environment must match requirements:
 - **Packages** - PyInstaller, EasyCython, Cython and PIP.
 - **Other** - C++ compiler (G++ or VS Build Tools) and terminal.
 
-## How to use it
-You can use installer or download portable version. 
-Installer, by default, set up your interpreter at Program Files directory. 
-Default directory:
-```
-C:\Program Files(x86)\ZERO\Ventura\
-```
-Portable version you can place where you want.
+## Getting started
+To start working with Ventura, you need to install runtimes.
+You can use installer or download portable version.
+Go to "Releases" page and download the latest release (installer or portable).
+If you pick installer, you need to download it and run.
+Installer automatically adds Ventura folder to Path, assign file extensions and make integration with Windows.
+If you pick portable, you need to download it and extract content.
+But, you must start Ventura from folder where you extract it.
 
-To check if it works correctly, try to execute it with command prompt:
-```
+Lets test interpreter. Just type this to command prompt:
+```commandline
 ventura
 ```
-If you use installer, you can call Ventura from terminal.
-Installer adds Ventura folder to "Path" variable.
-You must have this output:
-```
-Ventura Interpreter 1.1 Preview Build 42
+
+You will get this response:
+```text
+Ventura Interpreter 1.1 Build 50
 
 Usage of interpreter:
 ventura [path_to_file]
 or
 ventura [option]
+
 To show help, write "ventura -H" or "ventura --help" to the command line.
 ```
+
+If you get response like this, interpreter works fine and ready for tasks.
+But, you can get something like this:
+```text
+Ventura got an exceptions while starting, because args.pyd is missing.
+```
+
+Thats means Ventura havent one of important libraries to work correctly. 
+To repair it, you can reinstall Ventura. 
+If bug cause again, report about it to issues with your system information.
+
+One small note.
+We do not recommend to use Ventura on Windows 7. 
+Why? 
+In 2020 14 January Microsoft ended support of Windows 7.
+Text from official Microsoft Suppor portal:
+> **Microsoft made a commitment to provide 10 years of product support for Windows 7 when it was released on October 22, 2009. 
+> This 10-year period has now ended, and Microsoft has discontinued Windows 7 support so that we can focus our investment on supporting newer technologies and great new experiences. 
+> The specific end of support day for Windows 7 was January 14, 2020. 
+> Technical assistance and software updates from Windows Update that help protect your PC are no longer available for the product. 
+> Microsoft strongly recommends that you move to Windows 11 to avoid a situation where you need service or support that is no longer available.**
+
+> **Source:** https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962
 
 ## Generate .vt files
 Ventura works only with .vt files.
