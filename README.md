@@ -28,7 +28,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/kostya-zero/Ventura)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kostya-zero/Ventura)
 
-Ventura - interpreted script programming language developed on Python with Cython code.
+Ventura - interpreted script language developed on Python with Cython code.
 Interpreter allows you to create and write scripts, execute it on 64-bit systems with installed Windows OS.
 Scripts can be executed only with runtime, you don't any third-party software.
 
@@ -139,4 +139,4 @@ And, if you are using Ventura, we need your feedback!
 Create issue and tell us how you feels while developing on Ventura.
 
 ## Other Information
-Remember, this programing language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
+Remember, this script language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
