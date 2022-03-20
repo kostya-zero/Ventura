@@ -77,7 +77,13 @@ If you use installer, you can call Ventura from terminal.
 Installer adds Ventura folder to "Path" variable.
 You must have this output:
 ```
-Ventura Interpreter 1.0 Build 29
+Ventura Interpreter 1.1 Preview Build 42
+
+Usage of interpreter:
+ventura [path_to_file]
+or
+ventura [option]
+To show help, write "ventura -H" or "ventura --help" to the command line.
 ```
 
 ## Generate .vt files
