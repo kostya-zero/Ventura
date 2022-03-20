@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">VENTURA</h1>
+    <img src="https://raw.githubusercontent.com/kostya-zero/Ventura/master/ventura-poster.png"/>
 </p>
 
 <p align="center">
