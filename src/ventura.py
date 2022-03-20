@@ -40,7 +40,7 @@ def ParseFile(arg):
         sys.exit()
 
 info = [
-    'Ventura Interpreter 1.1 Preview Build 42\n',
+    'Ventura Interpreter 1.1 Sunraise Build 50\n',
     'Usage of interpreter:',
     'ventura [path_to_file]',
     'or',
