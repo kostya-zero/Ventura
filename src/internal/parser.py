@@ -121,7 +121,7 @@ class Parser(object):
                         elif act == '&execute': Main.execute(line, self.memory)
                         else: raise TypeError(f'Unknown expression -> {line}.')
                     else:
-                        raise InternalError(f'Main package are not used.')
+                        raise InternalError(f'Main package are not used. Import it with ";extend" function.')
                 else:
                     if line.count(':') == 0 or line.count(':') >= 2:
                         raise PackageError(f'Function expression must have only one single ":".')
@@ -147,17 +147,18 @@ class Parser(object):
                                 elif act_mdl == 'set': self.memory = text.set(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'text package are not used.')
+                                raise InternalError(f'text package are not used. Import it with ";extend" function.')
                         elif act_pkg == 'fstream':
                             if self.libs["fstream"]:
                                 if act_mdl == 'create': fstream.create(args, self.memory)
                                 elif act_mdl == 'read': self.memory = fstream.read(args, self.memory)
+                                elif act_mdl == 'read_utf8': self.memory = fstream.read_utf8(args, self.memory)
                                 elif act_mdl == 'wr': fstream.wr(args, self.memory)
                                 elif act_mdl == 'wra': fstream.wra(args, self.memory)
                                 elif act_mdl == 'remove': fstream.remove(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'fstream package are not used.')
+                                raise InternalError(f'fstream package are not used. Import it with ";extend" function.')
                         elif act_pkg == 'console':
                             if self.libs["console"]:
                                 if act_mdl == 'write': console.write(args, self.memory)
@@ -167,16 +168,17 @@ class Parser(object):
                                 elif act_mdl == 'warning': console.warning(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'console package are not used.')
+                                raise InternalError(f'console package are not used. Import it with ";extend" function.')
                         elif act_pkg == 'shell':
                             if self.libs["shell"]:
                                 if act_mdl == 'execute': Shell.execute(args, self.memory)
                                 elif act_mdl == 'start_cmd': Shell.start_cmd()
                                 elif act_mdl == 'start_ps': Shell.start_ps()
+                                elif act_mdl == 'start_process': Shell.start_process(args, self.memory)
                             else:
-                                raise InternalError(f'shell package are not used.')
+                                raise InternalError(f'shell package are not used. Import it with ";extend" function.')
                         else:
-                            raise InternalError(f'Unknown package use -> {act_pkg}.')
+                            raise InternalError(f'Unknown package use -> {act_pkg}. See list of available packges.')
 
         except InternalError as ie:
             Funcs.ThrowError(str(ie), 'InternalError', line, num)

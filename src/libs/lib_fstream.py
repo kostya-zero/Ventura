@@ -1,5 +1,5 @@
 import sys, os
-from internal.exceptions import SyntaxError, PackageError
+from internal.exceptions import SyntaxError, PackageError, MemoryError, TypeError
 import internal.formater as Formater
 from internal.funcs import Funcs
 Funcs = Funcs()
@@ -15,7 +15,7 @@ class fstream:
             file = open(args, 'w+')
             file.close()
         else:
-            raise TypeError('Bad arguments format.')
+            raise TypeError('Bad arguments format. \n                Argument can be variable or text value.')
 
     def remove(args: str, memory: dict):
         args = args.strip()
@@ -26,7 +26,7 @@ class fstream:
             args = Formater.FormatString(args)
             os.remove(args)
         else:
-            raise TypeError('Bad arguments format.')
+            raise TypeError('Bad arguments format. \n                Argument can be variable or text value.')
 
     def read(args: str, memory: dict):
         args = args.strip()
@@ -52,7 +52,7 @@ class fstream:
             memory[var] = cont
             return memory
         else:
-            raise TypeError('Function require 2 arguments')
+            raise TypeError('Function require 2 arguments.')
 
     def read_utf8(args: str, memory: dict):
         args = args.strip()

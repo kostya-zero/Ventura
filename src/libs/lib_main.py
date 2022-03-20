@@ -14,15 +14,16 @@ class Main:
                 if funcs.CheckVar(arg, memory):
                     to_print = funcs.GetVar(arg, memory)
                     to_print = Formater.FormatString(to_print)
-                    print(to_print)
+                    print(to_print, end='')
                 else:
-                    raise MemoryError(f'Variable are not registred -> {arg}.')
+                    raise MemoryError(f'Variable are not registred -> {arg}. \n                Try write above ";entry" line ";new ${arg.lstrip("$")}".')
+
             elif funcs.IsText(arg):
                 to_print = arg.strip('"')
                 to_print = Formater.FormatString(to_print)
-                print(to_print)
+                print(to_print, end='')
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def lnout(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -36,13 +37,13 @@ class Main:
                     to_print = Formater.FormatString(to_print)
                     print(to_print)
                 else:
-                    raise MemoryError(f'Variable are not registred -> {arg}.')
+                    raise MemoryError(f'Variable are not registred -> {arg}. \n                Try write above ";entry" line ";new ${arg.lstrip("$")}".')
             elif funcs.IsText(arg):
                 to_print = arg.strip('"')
                 to_print = Formater.FormatString(to_print)
                 print(to_print)
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def sv(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -51,7 +52,7 @@ class Main:
             split = args.split(':')
             args2 = split[1].strip()
             if args2.count(',') == 0 or args2.count(',') >= 2:
-                raise PackageError(f'Function require 2 arguments.')
+                raise PackageError(f'Function require 2 arguments. \n                Variable and value (text or variable).')
             else:
                 split_arg = args2.split(',')
                 var = split_arg[0].strip()
@@ -63,17 +64,17 @@ class Main:
                                 memory[var] = memory[new_value]
                                 return memory
                             else:
-                                raise MemoryError(f'Variable are not registred -> {new_value}.')
+                                raise MemoryError(f'Variable are not registred -> {new_value}. \n                Try write above ";entry" line ";new ${new_value.lstrip("$")}".')
                         elif funcs.IsText(new_value):
                             new_value = new_value.strip('"')
                             memory[var] = new_value
                             return memory
                         else:
-                            raise TypeError('Bad argument format.')
+                            raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
                     else:
-                        raise MemoryError(f'Variable are not registred -> {var}.')
+                        raise MemoryError(f'Variable are not registred -> {var}. \n                Try write above ";entry" line ";new ${var.lstrip("$")}".')
                 else:
-                    raise TypeError('Bad argument format.')
+                    raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def exit():
         sys.exit()
@@ -89,9 +90,9 @@ class Main:
                     memory.pop(var)
                     return memory
                 else:
-                    raise MemoryError(f'Variable are not registred -> {var}.')
+                    raise MemoryError(f'Variable are not registred -> {var}. \n                Try write above ";entry" line ";new ${var.lstrip("$")}".')
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def zero(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -104,9 +105,9 @@ class Main:
                     memory[var] = ''
                     return memory
                 else:
-                    raise MemoryError(f'Variable are not registred -> {var}.')
+                    raise MemoryError(f'Variable are not registred -> {var}. \n                Try write above ";entry" line ";new ${var.lstrip("$")}".')
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def wipe():
         os.system('cls')
@@ -122,9 +123,9 @@ class Main:
                     memory[var] = input()
                     return memory
                 else:
-                    raise MemoryError(f'Variable are not registred -> {var}.')
+                    raise MemoryError(f'Variable are not registred -> {var}. \n                Try write above ";entry" line ";new ${var.lstrip("$")}".')
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def execute(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -136,9 +137,9 @@ class Main:
                 if funcs.CheckVar(act, memory):
                     os.system(memory[act])
                 else:
-                    raise MemoryError(f'Variable are not registred -> {act}.')
+                    raise MemoryError(f'Variable are not registred -> {act}. \n                Try write above ";entry" line ";new ${act.lstrip("$")}".')
             elif funcs.IsText(act):
                 act = act.strip('"')
                 os.system(act)
             else:
-                raise TypeError('Bad argument format.')
+                raise TypeError('Bad argument format. \n                Argument can be variable or text value.')

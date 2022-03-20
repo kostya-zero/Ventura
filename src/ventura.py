@@ -1,43 +1,64 @@
+import time, sys
+from os import system, path
+
 try:
-    import sys, os, time
     import internal.arch as arch
+except:
+    print('Ventura got an exceptions while starting, because arch.pyd is missing.')
+    sys.exit()
+
+try:
     import internal.args as args
-    sys.dont_write_bytecode = True
+except:
+    print('Ventura got an exceptions while starting, because args.pyd is missing.')
+    sys.exit()
+
+sys.dont_write_bytecode = True
+
+try:
     from internal.parser import Parser
-except Exception as ex:
-    print('Ventura got an exceptions while starting.')
-    print('Exception: ' + ex)
+except:
+    print('Ventura got an exceptions while starting, because parser are missing.')
+    sys.exit()
+
+def ParseFile(arg):
+    if path.exists(arg):
+        if path.isfile(arg):
+            if path.basename(arg).endswith('.vt'):
+                fp = open(arg, 'r')
+                lines = fp.readlines()
+                fp.close()
+                pr.Parse(lines)
+            else:
+                print(f'VENTURA: Ventura can execute only .vt files.')
+                sys.exit()
+        else:
+            print(f'VENTURA: Element is not file: {arg}')
+            sys.exit()
+    else:
+        print(f'VENTURA: Cant find element: {arg}')
+        sys.exit()
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter 1.1 Preview Build 42')
+    print('Ventura Interpreter 1.1 Build 50')
     print('')
     print('Usage of interpreter:')
     print('ventura [path_to_file]')
     print('or')
     print('ventura [option]')
+    print('')
     print('To show help, write "ventura -H" or "ventura --help" to the command line.')
     sys.exit()
 else:
     arg = sys.argv[1]
     args.resolve(arg)
-    if os.path.exists(arg):
-        if os.path.isfile(arg):
-            if os.path.basename(arg).endswith('.vt'):
-                pr = Parser(arg)
-                fp = open(arg, 'r')
-                lines = fp.readlines()
-                fp.close()
-                scr_start = time.time()
-                pr.Parse(lines)
-                scr_end = time.time()
-                print('')
-                print('-------------------------------------')
-                print('Ventura ended work. Script are ended.')
-                print('Total working time: ' + str(scr_end - scr_start) + '.')
-            else:
-                print(f'VENTURA: Ventura can execute only .vt files.')
-        else:
-            print(f'VENTURA: Element is not file: {arg}')
-    else:
-        print(f'VENTURA: Cant find element: {arg}')
+    pr = Parser(arg)
+    scr_start = time.time()
+    ParseFile(arg)
+    scr_end = time.time()
+    print('')
+    print('-------------------------------------')
+    print('Ventura ended work. Script are ended.')
+    print('Total execution time: ' + str(scr_end - scr_start) + '.')
+    sys.exit()
