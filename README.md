@@ -100,7 +100,7 @@ One small note.
 We do not recommend to use Ventura on Windows 7. 
 Why? 
 In 14 January 2020 Microsoft ended support of Windows 7.
-Text from official Microsoft Suppor portal:
+Text from official Microsoft Support portal:
 > **Microsoft made a commitment to provide 10 years of product support for Windows 7 when it was released on October 22, 2009. 
 > This 10-year period has now ended, and Microsoft has discontinued Windows 7 support so that we can focus our investment on supporting newer technologies and great new experiences. 
 > The specific end of support day for Windows 7 was January 14, 2020. 
