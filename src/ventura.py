@@ -41,7 +41,7 @@ def ParseFile(arg):
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter 1.1 Build 50')
+    print('Ventura Interpreter 1.1 Sunraise Build 50')
     print('')
     print('Usage of interpreter:')
     print('ventura [path_to_file]')

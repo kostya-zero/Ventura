@@ -4,7 +4,7 @@ import platform
 cpdef resolve(arg: str):
     if arg.startswith('-'):
         if arg == '-V' or arg == '--version':
-            print('Version 1.1 // Build 50')
+            print('Version 1.1 Sunraise // Build 50')
             sys.exit(0)
         elif arg == '-gvt' or arg == '--generate-vt':
             path = input('Enter absolute path for new file: ')
