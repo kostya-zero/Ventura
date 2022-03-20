@@ -51,6 +51,7 @@ Ventura have open source code and protected under **GNU GPL v3.0** license.
 <p align="center">
     <h2 align="center">System requirements</h2>
 </p>
+
 To run Ventura on your system, your PC must match requirements:
 - **OS** - Windows 8 or above, Windows 7 are **not** recommended.
 - **CPU** - 64-bit CPU with AMD64 architecture.
@@ -58,6 +59,7 @@ To run Ventura on your system, your PC must match requirements:
 <p align="center">
     <h2 align="center">Build Requirements</h2>
 </p>
+
 To build Ventura your environment must match requirements:
 - **Python** - 3.9 or 3.10 (we dont recommend to build it with 3.11)
 - **PIP** - Version 21.x.x and above.
@@ -67,6 +69,7 @@ To build Ventura your environment must match requirements:
 <p align="center">
     <h2 align="center">Getting started</h2>
 </p>
+
 To start working with Ventura, you need to install runtimes.
 You can use installer or download portable version.
 Go to "Releases" page and download the latest release (installer or portable).
@@ -118,6 +121,7 @@ Text from official Microsoft Support portal:
 <p align="center">
     <h2 align="center">Generate .vt files</h2>
 </p>
+
 Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
@@ -141,6 +145,7 @@ You can check directory for this file. Its include a very, very simple script.
 <p align="center">
     <h2 align="center">Current status of Project</h2>
 </p>
+
 At this moment we are trying to add new features to Ventura and update old.
 The second task is make code executes faster and rewrites the part of code on Cython.
 Also, docs are not finished. 
