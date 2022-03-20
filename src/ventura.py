@@ -39,16 +39,19 @@ def ParseFile(arg):
         print(f'VENTURA: Cant find element: {arg}')
         sys.exit()
 
+info = [
+    'Ventura Interpreter 1.1 Preview Build 42\n',
+    'Usage of interpreter:',
+    'ventura [path_to_file]',
+    'or',
+    'ventura [option]',
+    'To show help, write "ventura -H" or "ventura --help" to the command line.'
+]      
+        
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print('Ventura Interpreter 1.1 Sunraise Build 50')
-    print('')
-    print('Usage of interpreter:')
-    print('ventura [path_to_file]')
-    print('or')
-    print('ventura [option]')
-    print('')
-    print('To show help, write "ventura -H" or "ventura --help" to the command line.')
+    for info in info:
+    print(info)
     sys.exit()
 else:
     arg = sys.argv[1]
@@ -57,8 +60,11 @@ else:
     scr_start = time.time()
     ParseFile(arg)
     scr_end = time.time()
-    print('')
-    print('-------------------------------------')
-    print('Ventura ended work. Script are ended.')
-    print('Total execution time: ' + str(scr_end - scr_start) + '.')
+    ended_text = [
+        '\n-------------------------------------',
+        'Ventura ended work. Script are ended.',
+        'Total working time: ' + str(scr_end - scr_start) + '.'
+    ]
+    for ended_text in ended_text:
+        print(ended_text)
     sys.exit()
