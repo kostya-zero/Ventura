@@ -15,11 +15,9 @@ except:
 
 sys.dont_write_bytecode = True
 
-try:
-    from internal.parser import Parser
-except:
-    print('Ventura got an exceptions while starting, because parser are missing.')
-    sys.exit()
+from internal.parser import Parser
+
+system('title Ventura 1.1')
 
 def ParseFile(arg):
     if path.exists(arg):
