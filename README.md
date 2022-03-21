@@ -28,9 +28,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/kostya-zero/Ventura)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kostya-zero/Ventura)
 
-Ventura - interpreted script language developed on Python with Cython code.
+Ventura - interpreted programming language  developed on Python with Cython code.
 Interpreter allows you to create and write scripts, execute it on 64-bit systems with installed Windows OS.
-Scripts can be executed only with runtime, you don't any third-party software.
+Scripts can be executed only with runtime, you don't need to download any third-party software.
 
 Ventura have syntax like **Pascal** and **Python** (partially). 
 Also, **"main"** package include basic commands. 
@@ -48,19 +48,28 @@ Ventura developed on Python with Cython without any third-party packages.
 Build with **PyInstaller** and **EasyCython**.
 Ventura have open source code and protected under **GNU GPL v3.0** license.
 
-## System requirements
+<p align="center">
+    <h2 align="center">:computer: System requirements</h2>
+</p>
+
 To run Ventura on your system, your PC must match requirements:
 - **OS** - Windows 8 or above, Windows 7 are **not** recommended.
 - **CPU** - 64-bit CPU with AMD64 architecture.
 
-## Build Requirements 
+<p align="center">
+    <h2 align="center">:hammer_and_wrench:  Build Requirements</h2>
+</p>
+
 To build Ventura your environment must match requirements:
 - **Python** - 3.9 or 3.10 (we dont recommend to build it with 3.11)
 - **PIP** - Version 21.x.x and above.
 - **Packages** - PyInstaller, EasyCython, Cython and PIP.
 - **Other** - C++ compiler (G++ or VS Build Tools) and terminal.
 
-## Getting started
+<p align="center">
+    <h2 align="center">:fast_forward: Getting started</h2>
+</p>
+
 To start working with Ventura, you need to install runtimes.
 You can use installer or download portable version.
 Go to "Releases" page and download the latest release (installer or portable).
@@ -109,7 +118,10 @@ Text from official Microsoft Support portal:
 
 > **Source:** https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962
 
-## Generate .vt files
+<p align="center">
+    <h2 align="center">:memo: Generate .vt files</h2>
+</p>
+
 Ventura works only with .vt files.
 You can generate it with Ventura executable.
 Just type this:
@@ -130,7 +142,10 @@ You can check directory for this file. Its include a very, very simple script.
     &out: "Hello World!"
 ```
 
-## Current status of Project
+<p align="center">
+    <h2 align="center">:chart_with_downwards_trend: Current status of Project</h2>
+</p>
+
 At this moment we are trying to add new features to Ventura and update old.
 The second task is make code executes faster and rewrites the part of code on Cython.
 Also, docs are not finished. 
@@ -138,5 +153,7 @@ Its important part of thi project.
 And, if you are using Ventura, we need your feedback!
 Create issue and tell us how you feels while developing on Ventura.
 
-## Other Information
-Remember, this script language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
+<p align="center">
+    <h2 align="center">:information_source: Other Information</h2>
+</p>
+Remember, this language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
