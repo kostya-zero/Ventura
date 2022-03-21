@@ -119,7 +119,7 @@ Text from official Microsoft Support portal:
 > **Source:** https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962
 
 <p align="center">
-    <h2 align="center">:spiral_notepad: Generate .vt files</h2>
+    <h2 align="center">:memo: Generate .vt files</h2>
 </p>
 
 Ventura works only with .vt files.
