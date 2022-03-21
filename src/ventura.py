@@ -17,7 +17,7 @@ sys.dont_write_bytecode = True
 
 from internal.parser import Parser
 
-system('title Ventura 1.1')
+system('title Ventura 1.2')
 
 def ParseFile(arg):
     if path.exists(arg):
@@ -37,19 +37,9 @@ def ParseFile(arg):
         print(f'VENTURA: Cant find element: {arg}')
         sys.exit()
 
-info = [
-    'Ventura Interpreter 1.1 Sunraise Build 50\n',
-    'Usage of interpreter:',
-    'ventura [path_to_file]',
-    'or',
-    'ventura [option]',
-    'To show help, write "ventura -H" or "ventura --help" to the command line.'
-]      
-        
 arch.CheckArch()
 if len(sys.argv) == 1:
-    for info in info:
-        print(info)
+    print(f'Ventura Interpreter 1.2 Firecode Build 61\nUsage of interpreter:\nventura [path_to_file]\nor\nventura [option]\nTo show help, write "ventura -H" or "ventura --help" to the command line.')
     sys.exit()
 else:
     arg = sys.argv[1]
@@ -58,11 +48,5 @@ else:
     scr_start = time.time()
     ParseFile(arg)
     scr_end = time.time()
-    ended_text = [
-        '\n-------------------------------------',
-        'Ventura ended work. Script are ended.',
-        'Total working time: ' + str(scr_end - scr_start) + '.'
-    ]
-    for ended_text in ended_text:
-        print(ended_text)
+    print(f"-------------------------------------\nVentura ended work. Script are ended.\nTotal working time: {str(scr_end - scr_start)}")
     sys.exit()

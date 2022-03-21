@@ -1,0 +1,8 @@
+;extend main
+;extend dirsmgr
+;prog_name "make_dir"
+;new $path
+;entry
+    &out: "Enter name of directory to create%19 "
+    &get_in: $path
+    dirsmgr.mk: $path

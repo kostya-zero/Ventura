@@ -1,0 +1,7 @@
+;extend main
+;extend env
+;prog_name "get_os_ver"
+;new $ver
+;entry
+    env.os_ver: $ver
+    &out: $ver

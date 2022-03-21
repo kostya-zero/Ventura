@@ -3,7 +3,7 @@ from internal.exceptions import SyntaxError, PackageError, MemoryError, TypeErro
 import internal.formater as Formater
 from internal.funcs import Funcs
 Funcs = Funcs()
-class fstream:
+class Fstream:
     def create(args: str, memory: dict):
         args = args.strip()
         if Funcs.IsVar(args) and Funcs.CheckVar(args, memory):

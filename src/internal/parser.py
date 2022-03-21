@@ -3,14 +3,12 @@ import internal.formater as Formater
 from .exceptions import InternalError, SyntaxError, PackageError, TypeError, MemoryError, ExtendError
 from .funcs import Funcs
 import internal.logic as Logic
-
-from libs.lib_main import Main
-from libs.lib_fstream import fstream
-from libs.lib_text import text
-from libs.lib_shell import Shell
-import libs.lib_console as console
-
 Funcs = Funcs()
+
+main = None
+fstream = None
+text = None
+shell = None
 
 class Parser(object):
     def __init__(self, filepath: str):
@@ -33,7 +31,10 @@ class Parser(object):
             "text": False,
             "fstream": False,
             "console": False,
-            "shell": False
+            "shell": False,
+            "hash": False,
+            "dirsmgr": False,
+            "env": False
         }
 
         self.prog_name = ''
@@ -72,11 +73,43 @@ class Parser(object):
                     if self.prog_start == False:
                         if line.startswith(';extend'):
                             split = line.split(' ')
-                            if split[1] == 'main': self.libs["main"] = True
-                            elif split[1] == 'text': self.libs["text"] = True
-                            elif split[1] == 'fstream': self.libs["fstream"] = True
-                            elif split[1] == 'console': self.libs["console"] = True
-                            elif split[1] == 'shell': self.libs["shell"] = True
+
+                            if split[1] == 'main':
+                                from libs.lib_main import Main
+                                main = Main
+                                self.libs["main"] = True
+
+                            elif split[1] == 'text':
+                                from libs.lib_text import Text
+                                text = Text
+                                self.libs["text"] = True
+
+                            elif split[1] == 'fstream':
+                                from libs.lib_fstream import Fstream
+                                fstream = Fstream
+                                self.libs["fstream"] = True
+
+                            elif split[1] == 'console':
+                                import libs.lib_console as Console
+                                self.libs["console"] = True
+
+                            elif split[1] == 'shell':
+                                from libs.lib_shell import Shell
+                                shell = Shell
+                                self.libs["shell"] = True
+
+                            elif split[1] == 'hash':
+                                import libs.lib_hash as Hash
+                                self.libs["hash"] = True
+
+                            elif split[1] == 'dirsmgr':
+                                import libs.lib_dirsmgr as Dirsmgr
+                                self.libs["dirsmgr"] = True
+
+                            elif split[1] == 'env':
+                                import libs.lib_env as Env
+                                self.libs["env"] = True
+
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith(';prog_name'):
@@ -110,15 +143,15 @@ class Parser(object):
                             act = line
 
                         if act == '&skip': pass
-                        elif act == '&out': Main.out(line, self.memory)
-                        elif act == '&lnout': Main.lnout(line, self.memory)
-                        elif act == '&sv': self.memory = Main.sv(line, self.memory)
-                        elif act == '&exit': Main.exit()
-                        elif act == '&void': self.memory = Main.void(line, self.memory)
-                        elif act == '&zero': self.memory = Main.zero(line, self.memory)
-                        elif act == '&wipe': Main.wipe()
-                        elif act == '&get_in': self.memory = Main.get_in(line, self.memory)
-                        elif act == '&execute': Main.execute(line, self.memory)
+                        elif act == '&out': main.out(line, self.memory)
+                        elif act == '&lnout': main.lnout(line, self.memory)
+                        elif act == '&sv': self.memory = main.sv(line, self.memory)
+                        elif act == '&exit': main.exit()
+                        elif act == '&void': self.memory = main.void(line, self.memory)
+                        elif act == '&zero': self.memory = main.zero(line, self.memory)
+                        elif act == '&wipe': main.wipe()
+                        elif act == '&get_in': self.memory = main.get_in(line, self.memory)
+                        elif act == '&execute': main.execute(line, self.memory)
                         else: raise TypeError(f'Unknown expression -> {line}.')
                     else:
                         raise InternalError(f'Main package are not used. Import it with ";extend" function.')
@@ -148,6 +181,7 @@ class Parser(object):
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'text package are not used. Import it with ";extend" function.')
+
                         elif act_pkg == 'fstream':
                             if self.libs["fstream"]:
                                 if act_mdl == 'create': fstream.create(args, self.memory)
@@ -159,27 +193,64 @@ class Parser(object):
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'fstream package are not used. Import it with ";extend" function.')
+
                         elif act_pkg == 'console':
                             if self.libs["console"]:
-                                if act_mdl == 'write': console.write(args, self.memory)
-                                elif act_mdl == 'clear': console.clear()
-                                elif act_mdl == 'message': console.message(args, self.memory)
-                                elif act_mdl == 'error': console.error(args, self.memory)
-                                elif act_mdl == 'warning': console.warning(args, self.memory)
+                                if act_mdl == 'write': Console.write(args, self.memory)
+                                elif act_mdl == 'clear': Console.clear()
+                                elif act_mdl == 'message': Console.message(args, self.memory)
+                                elif act_mdl == 'error': Console.error(args, self.memory)
+                                elif act_mdl == 'warning': Console.warning(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'console package are not used. Import it with ";extend" function.')
+
                         elif act_pkg == 'shell':
                             if self.libs["shell"]:
-                                if act_mdl == 'execute': Shell.execute(args, self.memory)
-                                elif act_mdl == 'start_cmd': Shell.start_cmd()
-                                elif act_mdl == 'start_ps': Shell.start_ps()
-                                elif act_mdl == 'start_process': Shell.start_process(args, self.memory)
+                                if act_mdl == 'execute': shell.execute(args, self.memory)
+                                elif act_mdl == 'start_cmd': shell.start_cmd()
+                                elif act_mdl == 'start_ps': shell.start_ps()
+                                elif act_mdl == 'start_process': shell.start_process(args, self.memory)
                             else:
                                 raise InternalError(f'shell package are not used. Import it with ";extend" function.')
+
+                        elif act_pkg == 'hash':
+                            if self.libs["hash"]:
+                                if act_mdl == 'md5': self.memory = Hash.md5(args, self.memory)
+                                elif act_mdl == 'sha1': self.memory = Hash.sha1(args, self.memory)
+                                elif act_mdl == 'sha512': self.memory = Hash.sha512(args, self.memory)
+                            else:
+                                raise InternalError(f'hash package are not used. Import it with ";extend" function.')
+
+                        elif act_pkg == 'dirsmgr':
+                            if self.libs["dirsmgr"]:
+                                if act_mdl == 'mk': Dirsmgr.mk(args, self.memory)
+                                elif act_mdl == 'rm': Dirsmgr.rm(args, self.memory)
+                                elif act_mdl == 'rm_tree': Dirsmgr.rm_tree(args, self.memory)
+                            else:
+                                raise InternalError(f'hash package are not used. Import it with ";extend" function.')
+
+                        elif act_pkg == 'dirsmgr':
+                            if self.libs["dirsmgr"]:
+                                if act_mdl == 'mk': Dirsmgr.mk(args, self.memory)
+                                elif act_mdl == 'rm': Dirsmgr.rm(args, self.memory)
+                                elif act_mdl == 'rm_tree': Dirsmgr.rm_tree(args, self.memory)
+                            else:
+                                raise InternalError(f'dirsmgr package are not used. Import it with ";extend" function.')
+
+                        elif act_pkg == 'env':
+                            if self.libs["env"]:
+                                if act_mdl == 'envvar': self.memory = Env.envvar(args, self.memory)
+                                elif act_mdl == 'os_ver': self.memory = Env.os_ver(args, self.memory)
+                                elif act_mdl == 'os_release': self.memory = Env.os_release(args, self.memory)
+                                elif act_mdl == 'os_type': self.memory = Env.os_type(args, self.memory)
+                                elif act_mdl == 'os_cpu': self.memory = Env.os_cpu(args, self.memory)
+                                elif act_mdl == 'os_machine': self.memory = Env.os_machine(args, self.memory)
+                            else:
+                                raise InternalError(f'env package are not used. Import it with ";extend" function.')
+
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}. See list of available packges.')
-
         except InternalError as ie:
             Funcs.ThrowError(str(ie), 'InternalError', line, num)
 

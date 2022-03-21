@@ -3,7 +3,7 @@ from internal.exceptions import SyntaxError, PackageError, TypeError, MemoryErro
 import internal.formater as Formater
 from internal.funcs import Funcs
 funcs = Funcs()
-class text:
+class Text:
     def init(args: str, memory: dict):
         if funcs.IsVar(args):
             if funcs.CheckVar(args, memory):

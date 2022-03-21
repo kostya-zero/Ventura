@@ -1,0 +1,8 @@
+;extend main
+;extend hash
+;prog_name "hash_demo"
+;new $word
+;entry
+    &get_in: $word
+    hash.sha512: $word
+    &out: $word
