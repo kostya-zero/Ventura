@@ -119,7 +119,7 @@ Text from official Microsoft Support portal:
 > **Source:** https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962
 
 <p align="center">
-    <h2 align="center">Generate .vt files</h2>
+    <h2 align="center">:spiral_notepad: Generate .vt files</h2>
 </p>
 
 Ventura works only with .vt files.
@@ -143,7 +143,7 @@ You can check directory for this file. Its include a very, very simple script.
 ```
 
 <p align="center">
-    <h2 align="center">Current status of Project</h2>
+    <h2 align="center">:chart_with_downwards_trend: Current status of Project</h2>
 </p>
 
 At this moment we are trying to add new features to Ventura and update old.
