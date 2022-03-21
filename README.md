@@ -49,7 +49,7 @@ Build with **PyInstaller** and **EasyCython**.
 Ventura have open source code and protected under **GNU GPL v3.0** license.
 
 <p align="center">
-    <h2 align="center">System requirements</h2>
+    <h2 align="center">:computer: System requirements</h2>
 </p>
 
 To run Ventura on your system, your PC must match requirements:
@@ -57,7 +57,7 @@ To run Ventura on your system, your PC must match requirements:
 - **CPU** - 64-bit CPU with AMD64 architecture.
 
 <p align="center">
-    <h2 align="center">Build Requirements</h2>
+    <h2 align="center">:hammer_and_wrench:  Build Requirements</h2>
 </p>
 
 To build Ventura your environment must match requirements:
@@ -67,7 +67,7 @@ To build Ventura your environment must match requirements:
 - **Other** - C++ compiler (G++ or VS Build Tools) and terminal.
 
 <p align="center">
-    <h2 align="center">Getting started</h2>
+    <h2 align="center">:fast_forward: Getting started</h2>
 </p>
 
 To start working with Ventura, you need to install runtimes.
@@ -154,6 +154,6 @@ And, if you are using Ventura, we need your feedback!
 Create issue and tell us how you feels while developing on Ventura.
 
 <p align="center">
-    <h2 align="center">Other Information</h2>
+    <h2 align="center">:information_source: Other Information</h2>
 </p>
 Remember, this language made to create scripts. Main executable of Ventura is interpreter. Good luck! 
