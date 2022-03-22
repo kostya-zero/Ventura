@@ -12,14 +12,14 @@ Before you start, if you are going to learn and using the Ventura language, you 
 - Ventura haven't a compiler, it require runtime on computer.
 - At this moment, you can use Ventura only on systems with installed Windows OS.
 
-If in the past you work with Python or Pascal you will adaptive faster.
-In the begining, we need to install an interpreter of Ventura. 
+If in the past you work with Python or Pascal you adaptive faster.
+In the beginning, we need to install an interpreter of Ventura. 
 In this tutorial we use installer.
 
 ## Installing Ventura
 
 You can install Ventura on your computer in two ways:
-- **Portable** - Portable version of Ventura. Suitable if you don't want to install it or you need it for a while.
+- **Portable** - Portable version of Ventura. Suitable if you don't want to install it, or you need it for a while.
 - **Installer** - Standard installation using the Ventura installer. The installer installs the file extension interpreter and adds the path to Ventura to the Path.
 
 Go to releases and choose version of Ventura.
@@ -31,7 +31,7 @@ This window must looks like this:
 >
 > _In this case, we use installer of 1.2 version._
 
-The check mark on "Interpreter" must be set. This is a important step during installation.
+The check mark on "Interpreter" must be set. This is an important step during installation.
 After a few steps and acceptance of the license agreement, the installation will begin. 
 It lasts an average of 15 - 30 seconds, it all depends on the performance of your device.
 
