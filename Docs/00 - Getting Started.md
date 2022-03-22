@@ -27,7 +27,7 @@ Download setup and run it.
 After readme, you need to choose a components to install.
 This window must looks like this:
 
-> ![img.png](img.png)
+> ![img.png](images/00-01.png)
 > _In this case, we use installer of 1.2 version._
 
 The check mark on "Interpreter" must be set. This is a important step during installation.
