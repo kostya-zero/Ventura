@@ -46,8 +46,7 @@ ventura -H
 ```
 > _The command that you need to enter into the terminal to output help._
 
-
-```
+```text`
 Usage of interpreter:
 ventura [path_to_file]
 or
