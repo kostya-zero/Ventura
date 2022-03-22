@@ -43,6 +43,7 @@ This option is responsible for displaying help about using Ventura.
 > ```commandline
 > ventura -H
 > ```
+> 
 > _The command that you need to enter into the terminal to output help._
 
 > ```text
@@ -63,6 +64,7 @@ This option is responsible for displaying help about using Ventura.
 > a new issue with your questions. Or, go to check documentation
 > for more information.
 > ```
+> 
 > _The text that we will receive in response to the entered command._
 
 If you got the same answer as above, then everything is fine. 
@@ -72,6 +74,7 @@ If, even after reinstalling, you still get an error, contact support on GitHub f
 > ```text
 > Ventura got an exceptions while starting, because arch.pyd is missing.
 > ```
+> 
 > _An error that you will get if some important file is missing. In our case, arch.pyd._
 
 ## Ending
