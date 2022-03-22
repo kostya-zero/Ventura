@@ -41,41 +41,39 @@ To do this, we will need a terminal.
 There we write the word "ventura" and adds the option "-H". 
 This option is responsible for displaying help about using Ventura.
 
-> ```commandline
-> ventura -H
-> ```
-> 
+```commandline
+ventura -H
+```
 > _The command that you need to enter into the terminal to output help._
 
-> ```text
-> Usage of interpreter:
-> ventura [path_to_file]
-> or
-> ventura [option]
-> 
-> Options:
-> -H, --help: Shows help.
-> -V, --version: Version of Ventura.
-> -A, --authors: Shows authors of Ventura.
-> -S, --system: Shows info about current machine.
-> -gvt, --generate-vt: Generates .vt file at location.
-> 
-> If you have questions about acting with Ventura Interpreter, go
-> to official GitHub repository to the issues page and create
-> a new issue with your questions. Or, go to check documentation
-> for more information.
-> ```
-> 
+
+```
+Usage of interpreter:
+ventura [path_to_file]
+or
+ventura [option]
+
+Options:
+-H, --help: Shows help.
+-V, --version: Version of Ventura.
+-A, --authors: Shows authors of Ventura.
+-S, --system: Shows info about current machine.
+-gvt, --generate-vt: Generates .vt file at location.
+
+If you have questions about acting with Ventura Interpreter, go
+to official GitHub repository to the issues page and create
+a new issue with your questions. Or, go to check documentation
+for more information.
+```
 > _The text that we will receive in response to the entered command._
 
 If you got the same answer as above, then everything is fine. 
 If you get an error, then you need to try reinstalling Ventura. 
 If, even after reinstalling, you still get an error, contact support on GitHub for help.
 
-> ```text
-> Ventura got an exceptions while starting, because arch.pyd is missing.
-> ```
-> 
+```text
+Ventura got an exceptions while starting, because arch.pyd is missing.
+```
 > _An error that you will get if some important file is missing. In our case, arch.pyd._
 
 ## Ending
