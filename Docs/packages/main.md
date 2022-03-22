@@ -84,7 +84,7 @@ Lets try this script again, but use &void.
 
 ```ruby
 ;extend main
-;prog_name "zero_demo"
+;prog_name "void_demo"
 ;new $word
 ;entry
     &out: "Type something%19 "
