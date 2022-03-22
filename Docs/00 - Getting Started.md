@@ -28,6 +28,7 @@ After readme, you need to choose a components to install.
 This window must looks like this:
 
 > ![In this case, we use installer of 1.2 version.](https://raw.githubusercontent.com/kostya-zero/Ventura/master/Docs/images/00-01.png)
+>
 > _In this case, we use installer of 1.2 version._
 
 The check mark on "Interpreter" must be set. This is a important step during installation.
