@@ -5,8 +5,6 @@ from .funcs import Funcs
 import internal.logic as Logic
 Funcs = Funcs()
 
-
-
 class Parser(object):
     def __init__(self, filepath: str):
         self.memory = {
