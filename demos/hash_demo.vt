@@ -1,5 +1,5 @@
-;extend main
-;extend hash
+;extend <vio>
+;extend <hash>
 ;prog_name "hash_demo"
 ;new $word
 ;entry
