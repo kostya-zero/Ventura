@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+;extend main
+;prog_name "repeat_line"
+;entry
+    &out:"Hi!"
+=======
+;extend main
+;prog_name "repeat_line"
+;entry
+    &out:"Hi!"
+>>>>>>> origin/master
+    @parse_line:4
