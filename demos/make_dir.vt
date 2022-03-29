@@ -1,5 +1,5 @@
-;extend main
-;extend dirsmgr
+;extend <vio>
+;extend <dirsmgr>
 ;prog_name "make_dir"
 ;new $path
 ;entry

@@ -1,5 +1,5 @@
-;extend main
-;extend env
+;extend <vio>
+;extend <env>
 ;prog_name "get_os_ver"
 ;new $ver
 ;entry

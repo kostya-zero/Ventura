@@ -12,7 +12,7 @@ Function can output only text type.
 Also, you can type name of variable, but it must have text type value.
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "output_demo"
 ;entry
     >> Outputs data on current line
@@ -26,7 +26,7 @@ By the way, Ventura **supports comment strings**.
 To identify this like a comment string, add **">>"** prefix, like in example below:
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "comments_demo"
 ;entry
     >> This is a comment string.
@@ -39,7 +39,7 @@ Package include functions to manage variable value.
 It works for every type of variables, text or number.
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "set_demo"
 ;new $word
 ;entry
@@ -52,7 +52,7 @@ And, you can receive value from user.
 It receives data from user and adds it to variable of text type.
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "input_demo"
 ;new $word
 ;entry
@@ -67,7 +67,7 @@ Main package also include functions to clear and fully delete variables from mem
 Lets see how it works in example below.
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "zero_demo"
 ;new $word
 ;entry
@@ -83,7 +83,7 @@ Good! Now, you see how &zero functions work.
 Lets try this script again, but use &void.
 
 ```ruby
-;extend main
+;extend <vio>
 ;prog_name "void_demo"
 ;new $word
 ;entry
@@ -93,4 +93,29 @@ Lets try this script again, but use &void.
     &out: "We forgot what you typed! Type it again&19 "
     &get_in: $word
     &out: $word
+```
+
+## Executing commands
+You can execute system commands with **&execute** function. Just like in example:
+```ruby
+;extend <vio>
+;prog_name "execute_demo"
+;new $word
+    &execute: "echo Hello!!!"
+```
+Also, you can clear console window!
+
+```ruby
+;extend <vio>
+;prog_name "execute_demo"
+;new $word
+    >> Windows variation
+    &execute: "cls"
+```
+```ruby
+;extend <vio>
+;prog_name "execute_demo"
+;new $word
+    >> Linux variation
+    &execute: "clear"
 ```
