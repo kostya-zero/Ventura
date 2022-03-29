@@ -1,4 +1,4 @@
-;extend main
+;extend <vio>
 ;prog_name "output"
 ;new $input
 ;entry

@@ -1,5 +1,4 @@
-;extend main
-;extend console
+;extend <vio>
 ;prog_name "console_demo"
 ;entry
     >> console is a library written on Cython.
