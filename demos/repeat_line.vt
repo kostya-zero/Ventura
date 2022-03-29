@@ -1,0 +1,5 @@
+;extend main
+;prog_name "repeat_line"
+;entry
+    &out:"Hi!"
+    @parse_line:4

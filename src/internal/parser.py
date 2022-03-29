@@ -5,10 +5,7 @@ from .funcs import Funcs
 import internal.logic as Logic
 Funcs = Funcs()
 
-main = None
-fstream = None
-text = None
-shell = None
+
 
 class Parser(object):
     def __init__(self, filepath: str):
@@ -21,10 +18,7 @@ class Parser(object):
             "$__username": getpass.getuser(),
             "$__hostname": platform.node(),
 
-            "$__cpuarch": os.environ["PROCESSOR_ARCHITECTURE"],
-            "$__cpuident": os.environ["PROCESSOR_IDENTIFIER"],
-            "$__cpulevel": os.environ["PROCESSOR_LEVEL"],
-            "$__cpurevision": os.environ["PROCESSOR_REVISION"]
+            "$__cpuarch": platform.architecture()[1]
         }
         self.libs = {
             "main": False,
@@ -42,11 +36,16 @@ class Parser(object):
         self.prog_ignore = False
         self.prog_inloop = False
 
+        self.main = None
+        self.fstream = None
+        self.text = None
+        self.shell = None
+
 
     def Parse(self, lines: list):
         num = 0
-        try:
-            for line in lines:
+        for line in lines:
+            try:
                 num += 1
                 line = Formater.ClearWhitespaces(line)
                 if line == '':
@@ -60,6 +59,20 @@ class Parser(object):
                 elif line.startswith('@'):
                     if self.prog_inloop == True:
                         raise InternalError('You havent exited the loop')
+                    elif line.startswith('@parse_line'):
+                        if line.count(':') == 1:
+                            split = line.split(':')
+                            num = None
+                            try: num = int(split[1])
+                            except: raise InternalError('Value must be without any chars, only numbers.')
+                            if num > len(lines):
+                                raise InternalError('Line to parse are not in range.')
+                            else:
+                                tp = []
+                                tp.append(lines[num - 1])
+                                self.Parse(tp)
+                        else:
+                            raise TypeError(f'Function expression must have only one single ":".')
                     elif Logic.resolve(line, self.memory):
                         self.prog_inloop = True
                     else:
@@ -74,39 +87,39 @@ class Parser(object):
                         if line.startswith(';extend'):
                             split = line.split(' ')
 
-                            if split[1] == 'main':
+                            if split[1] == '<vio>':
                                 from libs.lib_main import Main
-                                main = Main
+                                self.main = Main
                                 self.libs["main"] = True
 
-                            elif split[1] == 'text':
+                            elif split[1] == '<text>':
                                 from libs.lib_text import Text
-                                text = Text
+                                self.text = Text
                                 self.libs["text"] = True
 
-                            elif split[1] == 'fstream':
+                            elif split[1] == '<fstream>':
                                 from libs.lib_fstream import Fstream
-                                fstream = Fstream
+                                self.fstream = Fstream
                                 self.libs["fstream"] = True
 
-                            elif split[1] == 'console':
+                            elif split[1] == '<console>':
                                 import libs.lib_console as Console
                                 self.libs["console"] = True
 
-                            elif split[1] == 'shell':
+                            elif split[1] == '<shell>':
                                 from libs.lib_shell import Shell
-                                shell = Shell
+                                self.shell = Shell
                                 self.libs["shell"] = True
 
-                            elif split[1] == 'hash':
+                            elif split[1] == '<hash>':
                                 import libs.lib_hash as Hash
                                 self.libs["hash"] = True
 
-                            elif split[1] == 'dirsmgr':
+                            elif split[1] == '<dirsmgr>':
                                 import libs.lib_dirsmgr as Dirsmgr
                                 self.libs["dirsmgr"] = True
 
-                            elif split[1] == 'env':
+                            elif split[1] == '<env>':
                                 import libs.lib_env as Env
                                 self.libs["env"] = True
 
@@ -142,17 +155,28 @@ class Parser(object):
                         else:
                             act = line
 
-                        if act == '&skip': pass
-                        elif act == '&out': main.out(line, self.memory)
-                        elif act == '&lnout': main.lnout(line, self.memory)
-                        elif act == '&sv': self.memory = main.sv(line, self.memory)
-                        elif act == '&exit': main.exit()
-                        elif act == '&void': self.memory = main.void(line, self.memory)
-                        elif act == '&zero': self.memory = main.zero(line, self.memory)
-                        elif act == '&wipe': main.wipe()
-                        elif act == '&get_in': self.memory = main.get_in(line, self.memory)
-                        elif act == '&execute': main.execute(line, self.memory)
-                        else: raise TypeError(f'Unknown expression -> {line}.')
+                        if act == '&skip':
+                            pass
+                        elif act == '&out':
+                            self.main.out(line, self.memory)
+                        elif act == '&lnout':
+                            self.main.lnout(line, self.memory)
+                        elif act == '&sv':
+                            self.memory = self.main.sv(line, self.memory)
+                        elif act == '&exit':
+                            self.main.exit()
+                        elif act == '&void':
+                            self.memory = self.main.void(line, self.memory)
+                        elif act == '&zero':
+                            self.memory = self.main.zero(line, self.memory)
+                        elif act == '&wipe':
+                            self.main.wipe()
+                        elif act == '&get_in':
+                            self.memory = self.main.get_in(line, self.memory)
+                        elif act == '&execute':
+                            self.main.execute(line, self.memory)
+                        else:
+                            raise TypeError(f'Unknown expression -> {line}.')
                     else:
                         raise InternalError(f'Main package are not used. Import it with ";extend" function.')
                 else:
@@ -169,27 +193,28 @@ class Parser(object):
 
                         if act_pkg == 'text':
                             if self.libs["text"]:
-                                if act_mdl == 'init': self.memory = text.init(args, self.memory)
-                                elif act_mdl == 'cls_all': self.memory = text.cls_all(args, self.memory)
-                                elif act_mdl == 'cls_left': self.memory = text.cls_left(args, self.memory)
-                                elif act_mdl == 'cls_right': self.memory = text.cls_right(args, self.memory)
-                                elif act_mdl == 'lower': self.memory = text.lower(args, self.memory)
-                                elif act_mdl == 'upper': self.memory = text.upper(args, self.memory)
-                                elif act_mdl == 'append_start': self.memory = text.append_start(args, self.memory)
-                                elif act_mdl == 'append_end': self.memory = text.append_end(args, self.memory)
-                                elif act_mdl == 'set': self.memory = text.set(args, self.memory)
+                                if act_mdl == 'init': self.memory = self.text.init(args, self.memory)
+                                elif act_mdl == 'cls_all': self.memory = self.text.cls_all(args, self.memory)
+                                elif act_mdl == 'cls_left': self.memory = self.text.cls_left(args, self.memory)
+                                elif act_mdl == 'cls_right': self.memory = self.text.cls_right(args, self.memory)
+                                elif act_mdl == 'lower': self.memory = self.text.lower(args, self.memory)
+                                elif act_mdl == 'upper': self.memory = self.text.upper(args, self.memory)
+                                elif act_mdl == 'append_start': self.memory = self.text.append_start(args, self.memory)
+                                elif act_mdl == 'append_end': self.memory = self.text.append_end(args, self.memory)
+                                elif act_mdl == 'set': self.memory = self.text.set(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'text package are not used. Import it with ";extend" function.')
 
                         elif act_pkg == 'fstream':
                             if self.libs["fstream"]:
-                                if act_mdl == 'create': fstream.create(args, self.memory)
-                                elif act_mdl == 'read': self.memory = fstream.read(args, self.memory)
-                                elif act_mdl == 'read_utf8': self.memory = fstream.read_utf8(args, self.memory)
-                                elif act_mdl == 'wr': fstream.wr(args, self.memory)
-                                elif act_mdl == 'wra': fstream.wra(args, self.memory)
-                                elif act_mdl == 'remove': fstream.remove(args, self.memory)
+                                if act_mdl == 'create': self.fstream.create(args, self.memory)
+                                elif act_mdl == 'read': self.memory = self.fstream.read(args, self.memory)
+                                elif act_mdl == 'read_utf8': self.memory = self.fstream.read_utf8(args, self.memory)
+                                elif act_mdl == 'wr': self.fstream.wr(args, self.memory)
+                                elif act_mdl == 'wra': self.fstream.wra(args, self.memory)
+                                elif act_mdl == 'remove': self.fstream.remove(args, self.memory)
+                                elif act_mdl == 'exist': self.memory = self.fstream.exist(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'fstream package are not used. Import it with ";extend" function.')
@@ -201,16 +226,19 @@ class Parser(object):
                                 elif act_mdl == 'message': Console.message(args, self.memory)
                                 elif act_mdl == 'error': Console.error(args, self.memory)
                                 elif act_mdl == 'warning': Console.warning(args, self.memory)
-                                else: raise TypeError(f'Unknown expression -> {line}.')
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'console package are not used. Import it with ";extend" function.')
 
                         elif act_pkg == 'shell':
                             if self.libs["shell"]:
-                                if act_mdl == 'execute': shell.execute(args, self.memory)
-                                elif act_mdl == 'start_cmd': shell.start_cmd()
-                                elif act_mdl == 'start_ps': shell.start_ps()
-                                elif act_mdl == 'start_process': shell.start_process(args, self.memory)
+                                if act_mdl == 'execute': self.shell.execute(args, self.memory)
+                                elif act_mdl == 'start_cmd': self.shell.start_cmd()
+                                elif act_mdl == 'start_ps': self.shell.start_ps()
+                                elif act_mdl == 'start_process': self.shell.start_process(args, self.memory)
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'shell package are not used. Import it with ";extend" function.')
 
@@ -219,6 +247,8 @@ class Parser(object):
                                 if act_mdl == 'md5': self.memory = Hash.md5(args, self.memory)
                                 elif act_mdl == 'sha1': self.memory = Hash.sha1(args, self.memory)
                                 elif act_mdl == 'sha512': self.memory = Hash.sha512(args, self.memory)
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'hash package are not used. Import it with ";extend" function.')
 
@@ -227,14 +257,8 @@ class Parser(object):
                                 if act_mdl == 'mk': Dirsmgr.mk(args, self.memory)
                                 elif act_mdl == 'rm': Dirsmgr.rm(args, self.memory)
                                 elif act_mdl == 'rm_tree': Dirsmgr.rm_tree(args, self.memory)
-                            else:
-                                raise InternalError(f'hash package are not used. Import it with ";extend" function.')
-
-                        elif act_pkg == 'dirsmgr':
-                            if self.libs["dirsmgr"]:
-                                if act_mdl == 'mk': Dirsmgr.mk(args, self.memory)
-                                elif act_mdl == 'rm': Dirsmgr.rm(args, self.memory)
-                                elif act_mdl == 'rm_tree': Dirsmgr.rm_tree(args, self.memory)
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'dirsmgr package are not used. Import it with ";extend" function.')
 
@@ -246,22 +270,29 @@ class Parser(object):
                                 elif act_mdl == 'os_type': self.memory = Env.os_type(args, self.memory)
                                 elif act_mdl == 'os_cpu': self.memory = Env.os_cpu(args, self.memory)
                                 elif act_mdl == 'os_machine': self.memory = Env.os_machine(args, self.memory)
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'env package are not used. Import it with ";extend" function.')
 
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}. See list of available packges.')
-        except InternalError as ie:
-            Funcs.ThrowError(str(ie), 'InternalError', line, num)
+            except InternalError as ie:
+                Funcs.ThrowError(str(ie), 'InternalError', line, num)
+                break
 
-        except ExtendError as ee:
-            Funcs.ThrowError(str(ee), 'ExtendError', line, num)
+            except ExtendError as ee:
+                Funcs.ThrowError(str(ee), 'ExtendError', line, num)
+                break
 
-        except TypeError as te:
-            Funcs.ThrowError(str(te), 'TypeError', line, num)
+            except TypeError as te:
+                Funcs.ThrowError(str(te), 'TypeError', line, num)
+                break
 
-        except MemoryError as me:
-            Funcs.ThrowError(str(me), 'MemoryError', line, num)
+            except MemoryError as me:
+                Funcs.ThrowError(str(me), 'MemoryError', line, num)
+                break
 
-        except PackageError as pe:
-            Funcs.ThrowError(str(pe), 'PackageError', line, num)
+            except PackageError as pe:
+                Funcs.ThrowError(str(pe), 'PackageError', line, num)
+                break

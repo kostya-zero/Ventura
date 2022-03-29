@@ -1,4 +1,4 @@
-
+;extend <vio>
 ;prog_name "zero_demo"
 ;new $word
 ;entry
