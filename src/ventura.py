@@ -9,12 +9,7 @@ except:
     print('Ventura got an exceptions while starting, because arch.pyd is missing.')
     sys.exit()
 
-try:
-    import internal.args as args
-except:
-    print('Ventura got an exceptions while starting, because args.pyd is missing.')
-    sys.exit()
-
+import internal.args as args
 from internal.parser import Parser
 
 if platform.architecture()[1] == "WindowsPE":
