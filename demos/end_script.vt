@@ -3,13 +3,13 @@
 ;new $a
 ;entry
     &out:"Do you want to end the script?"
-    $get_in:$a
+    &get_in:$a
     @if_equals:$a,"y"
         &out:"Okay!"
         &exit
     @close
 
     @if_notequals:$a,"y"
-        &out:"I dont care about what you typed. I clos it anyway! Ha-ha-ha!"
+        &out:"I dont care about what you typed. I close it anyway! Ha-ha-ha!"
         &exit
     @close
