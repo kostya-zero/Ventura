@@ -11,7 +11,6 @@ cdef class Funcs:
         print('documentation of Ventura for solution. Or go to')
         print('official GitHub page and create an issue with your')
         print('question and code snippet.')
-        sys.exit()
 
     cpdef CheckVar(self, str var, dict memory):
         if var.startswith('$'):

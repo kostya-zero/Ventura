@@ -1,11 +1,15 @@
 import sys
 import os
 import platform
+from bin.terminal import Terminal
 cpdef resolve(arg: str):
     if arg.startswith('-'):
         if arg == '-V' or arg == '--version':
-            print('Version 1.2 Firecode // Build 61')
+            print('Version 1.3 Phoenix // Build 74')
             sys.exit(0)
+        elif arg == '-T' or arg == '--terminal':
+            Terminal.Run()
+            sys.exit()
         elif arg == '-gvt' or arg == '--generate-vt':
             path = input('Enter absolute path for new file: ')
             if os.path.isabs(path):
@@ -17,10 +21,11 @@ cpdef resolve(arg: str):
                     sys.exit()
                 else:
                     fp = open(path, 'w')
-                    fp.write(""";extend main
+                    fp.write(""";extend <vio>
     ;prog_name "script"
     ;entry
-        &out: "Hello World!""")
+        &out: "Hello World!"
+        """)
                     fp.close()
                     print(f'Success! Script file was created by this path: {path}')
                     sys.exit()
@@ -38,6 +43,21 @@ cpdef resolve(arg: str):
             print(f'CPU Architecture: {os.environ["PROCESSOR_ARCHITECTURE"]}')
             print(f'CPU Identifier: {os.environ["PROCESSOR_IDENTIFIER"]}')
             sys.exit()
+        elif arg == '-L' or arg == '--libs':
+            print('List of available libraries:')
+            list = [
+                'vio',
+                'text',
+                'fstream',
+                'console',
+                'shell',
+                'hash',
+                'dirsmgr',
+                'env'
+            ]
+            for pkg in list:
+                print(pkg)
+            sys.exit()
         elif arg == '-H' or arg == '--help':
             print('Usage of interpreter:')
             print('ventura [path_to_file]')
@@ -50,6 +70,8 @@ cpdef resolve(arg: str):
             print('-A, --authors: Shows authors of Ventura.')
             print('-S, --system: Shows info about current machine.')
             print('-gvt, --generate-vt: Generates .vt file at location.')
+            print('-T, --terminal: Starts Ventura in Terminal Mode.')
+            print('-L, --libs: Shows list of available libraries.')
             print('')
             print('If you have questions about acting with Ventura Interpreter, go')
             print('to official GitHub repository to the issues page and create ')
