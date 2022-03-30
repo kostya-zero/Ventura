@@ -5,12 +5,13 @@ class Terminal:
     def Run():
         lines = []
         pr = None
-        if platform.architecture()[0] == "WindowsPE":
+        if platform.architecture()[1] == "WindowsPE":
             os.system('cls')
         else:
             os.system('clear')
         print("Ventura Interpreter 1.3 Phoenix // Terminal mode")
-        print('Terminal mode still in Preview')
+        print('Terminal mode still in Preview.')
+        print('Type .help for help.')
         while True:
             act = input(f'\33[92m>>>\33[0m ')
             if act == '.clear':
