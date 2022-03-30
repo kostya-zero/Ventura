@@ -36,13 +36,13 @@ Ventura have syntax like **Pascal** and **Python** (partially).
 Also, **"main"** package include basic commands. 
 Below, example of syntax:
 ```ruby
-;extend main
-;prog_name "output"
-;new $var
-;entry
-    &sv: $var,$__cpuarch
-    &out: "CPU Arch - "
-    &lnout: $var
+#extend <vio>
+#prog_name "output"
+#new $var
+#entry
+    &sv:($var,$__cpuarch)
+    &out:("CPU Arch - ")
+    &lnout:($var)
 ```
 Ventura developed on Python with Cython without any third-party packages. 
 Build with **PyInstaller** and **EasyCython**.
@@ -135,12 +135,6 @@ Enter absolute path for new file: F:\script.vt
 Success! Script file was created by this path: F:\script.vt
 ```
 You can check directory for this file. Its include a very, very simple script.
-```ruby
-;extend main
-;prog_name "script"
-;entry
-    &out: "Hello World!"
-```
 
 <p align="center">
     <h2 align="center">:chart_with_downwards_trend: Current status of Project</h2>
