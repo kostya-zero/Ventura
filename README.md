@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/kostya-zero/Ventura/master/ventura-poster.png"/>
+    <img src=""/>
 </p>
 
 <p align="center">
