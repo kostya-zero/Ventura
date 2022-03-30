@@ -9,7 +9,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             arg = split[1].strip()
+            arg = arg.lstrip('(')
+            arg = arg.rstrip(')')
+            arg = arg.strip()
             if funcs.IsVar(arg):
                 if funcs.CheckVar(arg, memory):
                     to_print = funcs.GetVar(arg, memory)
@@ -30,7 +37,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             arg = split[1].strip()
+            arg = arg.lstrip('(')
+            arg = arg.rstrip(')')
+            arg = arg.strip()
             if funcs.IsVar(arg):
                 if funcs.CheckVar(arg):
                     to_print = funcs.GetVar(arg, memory)
@@ -50,7 +64,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             args2 = split[1].strip()
+            args2 = args2.lstrip('(')
+            args2 = args2.rstrip(')')
+            args2 = args2.strip()
             if args2.count(',') == 0 or args2.count(',') >= 2:
                 raise PackageError(f'Function require 2 arguments. \n                Variable and value (text or variable).')
             else:
@@ -84,7 +105,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             var = split[1].strip()
+            var = var.lstrip('(')
+            var = var.rstrip(')')
+            var = var.strip()
             if funcs.IsVar(var):
                 if funcs.CheckVar(var, memory):
                     memory.pop(var)
@@ -99,7 +127,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             var = split[1].strip()
+            var = var.lstrip('(')
+            var = var.rstrip(')')
+            var = var.strip()
             if funcs.IsVar(var):
                 if funcs.CheckVar(var, memory):
                     memory[var] = ''
@@ -117,7 +152,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             var = split[1].strip()
+            var = var.lstrip('(')
+            var = var.rstrip(')')
+            var = var.strip()
             if funcs.IsVar(var):
                 if funcs.CheckVar(var, memory):
                     memory[var] = input()
@@ -132,7 +174,14 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
+            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
+                pass
+            else:
+                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
             act = split[1].strip()
+            act = act.lstrip('(')
+            act = act.rstrip(')')
+            act = act.strip()
             if funcs.IsVar(act):
                 if funcs.CheckVar(act, memory):
                     os.system(memory[act])

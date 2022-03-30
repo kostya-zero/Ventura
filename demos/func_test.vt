@@ -1,0 +1,7 @@
+#extend <vio>
+#start
+    @func test {
+        &out:("How are you?")
+    }
+    &out:("Hi!")
+    @call test

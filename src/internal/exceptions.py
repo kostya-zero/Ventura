@@ -15,3 +15,6 @@ class PackageError(Exception):
 
 class MemoryError(Exception):
     pass
+
+class RuntimeError(Exception):
+    pass

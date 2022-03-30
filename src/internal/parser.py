@@ -28,6 +28,7 @@ class Parser(object):
             "dirsmgr": False,
             "env": False
         }
+        self.funcs = {}
 
         self.prog_name = ''
         self.prog_start = False
@@ -54,6 +55,11 @@ class Parser(object):
                         self.prog_inloop = False
                     else:
                         raise InternalError('You havent been in a loop.')
+                elif line == '}':
+                    if self.prog_ignore:
+                        self.prog_ignore = False
+                    else:
+                        raise InternalError('No function initialized!')
                 elif line.startswith('@'):
                     if self.prog_inloop == True:
                         raise InternalError('You havent exited the loop')
@@ -71,8 +77,35 @@ class Parser(object):
                                 self.Parse(tp)
                         else:
                             raise TypeError(f'Function expression must have only one single ":".')
+
+                    elif line.startswith('@func'):
+                        split = line.split()
+                        func_name = split[1].strip()
+                        if split[2].strip() == '{':
+                            func_lines = []
+                            for i in range(num, len(lines)):
+                                cur_line = lines[i - 1].strip()
+                                if line == cur_line:
+                                    pass
+                                elif cur_line == '}':
+                                    break
+                                else:
+                                    func_lines.append(cur_line)
+                            self.funcs[func_name] = func_lines
+                            self.prog_ignore = True
+                        else:
+                            raise InternalError("Function havent entry point.")
+
+                    elif line.startswith('@call'):
+                        split = line.split(' ')
+                        if split[1].strip() in self.funcs.keys():
+                            self.Parse(self.funcs[split[1].strip()])
+                        else:
+                            raise InternalError("Function not registred.")
+                    
                     elif Logic.resolve(line, self.memory):
                         self.prog_inloop = True
+
                     else:
                         self.prog_inloop = True
                         self.prog_ignore = True
@@ -80,9 +113,9 @@ class Parser(object):
                     pass
                 elif line.startswith('>>'):
                     pass
-                elif line.startswith(';'):
+                elif line.startswith('#'):
                     if self.prog_start == False:
-                        if line.startswith(';extend'):
+                        if line.startswith('#extend'):
                             split = line.split(' ')
 
                             if split[1] == '<vio>':
@@ -123,15 +156,18 @@ class Parser(object):
 
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
-                        elif line.startswith(';prog_name'):
+                        elif line.startswith('#prog_name'):
                             split = line.split(' ')
                             if split[1].startswith('"') and split[1].endswith('"'):
                                 self.prog_name = split[1].strip('"')
                             else:
                                 raise InternalError(f'Program name must be in double quotes.')
-                        elif line.startswith(';entry'):
-                            self.prog_start = True
-                        elif line.startswith(';new'):
+                        elif line.startswith('#start'):
+                            if self.prog_start:
+                                raise RuntimeError("Program already started.")
+                            else:
+                                self.prog_start = True
+                        elif line.startswith('#new'):
                             split = line.split(' ')
                             if split[1].startswith('$__'):
                                 raise TypeError(f'Variable name cant have name like reserved variable.')
@@ -141,8 +177,7 @@ class Parser(object):
                                 raise TypeError(f'Variable name must starts with "$".')
                         else:
                             raise TypeError(f'Unknown expression for internal function -> {line}.')
-                    else:
-                        raise InternalError('Program already started.')
+                    else: raise InternalError('Program already started.')
                 elif line.startswith('&'):
                     if self.libs["main"] == True:
                         act = ''
@@ -150,40 +185,37 @@ class Parser(object):
                             act = line.split(':')[0].strip()
                         elif line.count(':') >= 2:
                             raise PackageError(f'Function expression must have only one single ":".')
-                        else:
-                            act = line
+                        else: act = line
 
-                        if act == '&skip':
-                            pass
-                        elif act == '&out':
-                            self.main.out(line, self.memory)
-                        elif act == '&lnout':
-                            self.main.lnout(line, self.memory)
-                        elif act == '&sv':
-                            self.memory = self.main.sv(line, self.memory)
-                        elif act == '&exit':
-                            self.main.exit()
-                        elif act == '&void':
-                            self.memory = self.main.void(line, self.memory)
-                        elif act == '&zero':
-                            self.memory = self.main.zero(line, self.memory)
-                        elif act == '&wipe':
-                            self.main.wipe()
-                        elif act == '&get_in':
-                            self.memory = self.main.get_in(line, self.memory)
-                        elif act == '&execute':
-                            self.main.execute(line, self.memory)
-                        else:
-                            raise TypeError(f'Unknown expression -> {line}.')
-                    else:
-                        raise InternalError(f'Main package are not used. Import it with ";extend" function.')
-                else:
+                        if act == '&skip': pass
+                        elif act == '&out': self.main.out(line, self.memory)
+                        elif act == '&lnout': self.main.lnout(line, self.memory)
+                        elif act == '&sv': self.memory = self.main.sv(line, self.memory)
+                        elif act == '&exit': self.main.exit()
+                        elif act == '&void': self.memory = self.main.void(line, self.memory)
+                        elif act == '&zero': self.memory = self.main.zero(line, self.memory)
+                        elif act == '&wipe': self.main.wipe()
+                        elif act == '&get_in': self.memory = self.main.get_in(line, self.memory)
+                        elif act == '&execute': self.main.execute(line, self.memory)
+                        else: raise TypeError(f'Unknown expression -> {line}.')
+                        
+                    else: raise InternalError(f'Main package are not used. Import it with ";extend" function.')
+                else: 
                     if line.count(':') == 0 or line.count(':') >= 2:
                         raise PackageError(f'Function expression must have only one single ":".')
                     else:
                         split = line.split(':')
                         actname = split[0].strip()
                         args = split[1].strip()
+
+                        if args .strip().startswith('(') and args .strip().endswith(')'):
+                            pass
+                        else:
+                            raise TypeError("Arguments must be in brackets. New in 1.3 version.")
+
+                        args = args.lstrip('(')
+                        args = args.rstrip(')')
+                        args = args.strip()
 
                         split_act = actname.split('.')
                         act_pkg = split_act[0].strip()
@@ -201,8 +233,7 @@ class Parser(object):
                                 elif act_mdl == 'append_end': self.memory = self.text.append_end(args, self.memory)
                                 elif act_mdl == 'set': self.memory = self.text.set(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
-                            else:
-                                raise InternalError(f'text package are not used. Import it with ";extend" function.')
+                            else: raise InternalError(f'text package are not used. Import it with ";extend" function.')
 
                         elif act_pkg == 'fstream':
                             if self.libs["fstream"]:
@@ -272,7 +303,6 @@ class Parser(object):
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
                                 raise InternalError(f'env package are not used. Import it with ";extend" function.')
-
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}. See list of available packges.')
             except InternalError as ie:
@@ -293,4 +323,8 @@ class Parser(object):
 
             except PackageError as pe:
                 Funcs.ThrowError(str(pe), 'PackageError', line, num)
+                break
+
+            except RuntimeError as re:
+                Funcs.ThrowError(str(re), 'RuntimeError', line, num)
                 break
