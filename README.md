@@ -35,7 +35,7 @@ Scripts can be executed only with runtime, you don't need to download any third-
 Ventura have syntax like **Pascal** and **Python** (partially). 
 Also, **"main"** package include basic commands. 
 Below, example of syntax:
-```ruby
+```haskell
 #extend <vio>
 #prog_name "output"
 #new $var
