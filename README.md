@@ -33,7 +33,7 @@ Interpreter allows you to create and write scripts, execute it on 64-bit systems
 Scripts can be executed only with runtime, you don't need to download any third-party software.
 
 Ventura have syntax like **Pascal** and **Python** (partially). 
-Also, **"main"** package include basic commands. 
+Also, **"vio"** package include basic commands. 
 Below, example of syntax:
 ```haskell
 #extend <vio>
