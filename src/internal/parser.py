@@ -8,15 +8,13 @@ Funcs = Funcs()
 class Parser(object):
     def __init__(self, filepath: str):
         self.memory = {
-            "$__filename": os.path.basename(filepath),
-            "$__filepath": filepath,
-            "$__filedir": os.path.dirname(filepath),
-            "$__filenamenoext": os.path.basename(os.path.splitext(filepath)[0]),
-
-            "$__username": getpass.getuser(),
-            "$__hostname": platform.node(),
-
-            "$__cpuarch": platform.architecture()[1]
+            "$__filename": { "type": "text","value": os.path.basename(filepath)},
+            "$__filepath": { "type": "text", "value": filepath},
+            "$__filedir": {"type": "text","value": os.path.dirname(filepath)},
+            "$__filenamenoext": {"type": "text", "value": os.path.basename(os.path.splitext(filepath)[0])},
+            "$__username": {"type": "text", "value": getpass.getuser()},
+            "$__hostname": {"type": "text", "value": platform.node()},
+            "$__cpuarch": {"type": "text", "value": platform.architecture()[1]}
         }
         self.libs = {
             "main": False,
@@ -172,12 +170,14 @@ class Parser(object):
                             if split[1].startswith('$__'):
                                 raise TypeError(f'Variable name cant have name like reserved variable.')
                             elif split[1].startswith('$'):
-                                self.memory[split[1]] = ''
+                                self.memory[split[1]]["type"] = 'null'
+                                self.memory[split[1]]["value"] = ''
                             else:
                                 raise TypeError(f'Variable name must starts with "$".')
                         else:
                             raise TypeError(f'Unknown expression for internal function -> {line}.')
-                    else: raise InternalError('Program already started.')
+                    else:
+                        raise InternalError('Program already started.')
                 elif line.startswith('&'):
                     if self.libs["main"] == True:
                         act = ''

@@ -26,8 +26,8 @@ cdef class Funcs:
             raise MemoryError(f'You cant use reserved variables.')
         elif var.startswith('$'):
             if var in memory.keys():
-                value = memory[var]
-                return value
+                obj = memory[var]
+                return obj
             else:
                 raise MemoryError(f'Variable are not registred -> {var}.')
         else:
@@ -45,3 +45,12 @@ cdef class Funcs:
             return True
         else:
             return False
+
+    cpdef IsTextVar(self, str word, dict memory):
+        if self.CheckVar(word, memory):
+            if memory[word]["type"] == 'text':
+                return True
+            else:
+                return False
+        else:
+            raise MemoryError(f'Variable are not registred -> {word}.')
