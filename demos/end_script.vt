@@ -1,15 +1,15 @@
-;extend <vio>
-;prog_name "end_script"
-;new $a
-;entry
-    &out:"Do you want to end the script?"
-    &get_in:$a
+#extend <vio>
+#prog_name "end_script"
+#new $a
+#start
+    &out:("Do you want to end the script?")
+    &get_in:($a)
     @if_equals:$a,"y"
-        &out:"Okay!"
+        &out:("Okay!")
         &exit
     @close
 
     @if_notequals:$a,"y"
-        &out:"I dont care about what you typed. I close it anyway! Ha-ha-ha!"
+        &out:("I don't care about what you typed. I close it anyway! Ha-ha-ha!")
         &exit
     @close

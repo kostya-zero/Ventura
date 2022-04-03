@@ -1,5 +1,4 @@
-;extend main
-;prog_name "output"
-;entry
-    &out:"Hello!"
-    &out:"Hello!"
+#extend <vio>
+#prog_name "output"
+#start
+    &out:("Hello world!")

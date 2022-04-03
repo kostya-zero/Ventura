@@ -1,13 +1,13 @@
-;extend <vio>
-;prog_name "output"
-;new $output
-;entry
+#extend <vio>
+#prog_name "output"
+#new $output
+#entry
     >> The our task is output CPU architecture.
     >> Ventura parser automatically generates reserved variables.
     >> Reserved variables start with "$__".
     >> "$__cpuarch" is our choice.
     >> Lets output it.
     >> First, lets set value for $output.
-    &sv:$output,$__cpuarch
+    &sv:($output,$__cpuarch)
     >> Now, print it to console.
-    &out:$output
+    &out:($output)

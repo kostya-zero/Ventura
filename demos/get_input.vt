@@ -1,10 +1,10 @@
-;extend <vio>
-;prog_name "output"
-;new $input
-;entry
+#extend <vio>
+#prog_name "output"
+#new $input
+#entry
     >> Now, we need to get input from user.
-    &out:"Type something%19"
+    &out:("Type something%19")
     >> Get input from user.
-    &get_in:$input
+    &get_in:($input)
     >> Lets show what he typed.
-    &out:$input
+    &out:($input)

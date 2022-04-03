@@ -1,6 +1,7 @@
-;extend <vio>
-;prog_name "console_demo"
-;entry
+#extend <vio>
+#extend <console>
+#prog_name "console_demo"
+#start
     >> console is a library written on Cython.
     >> console works more faster as &out from
 	console.write:"Hello world!"

@@ -1,6 +1,6 @@
-;extend <vio>
-;prog_name "comments"
-;entry
+#extend <vio>
+#prog_name "comments"
+#start
     >> Ventura supports comment strings.
     >> Parser ignore this lines.
     >> Each comment line must starts with ">>".

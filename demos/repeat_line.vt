@@ -1,5 +1,5 @@
-;extend <vio>
-;prog_name "repeat_line"
-;entry
-    &out:"Hi!"
+#extend <vio>
+#prog_name "repeat_line"
+#entry
+    &out:("Hi!")
     @parse_line:4

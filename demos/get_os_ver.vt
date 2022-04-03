@@ -1,7 +1,7 @@
-;extend <vio>
-;extend <env>
-;prog_name "get_os_ver"
-;new $ver
-;entry
-    env.os_ver: $ver
-    &out: $ver
+#extend <vio>
+#extend <env>
+#prog_name "get_os_ver"
+#new $ver
+#start
+    env.os_ver:($ver)
+    &out:($ver)

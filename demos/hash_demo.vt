@@ -1,8 +1,8 @@
-;extend <vio>
-;extend <hash>
-;prog_name "hash_demo"
-;new $word
-;entry
-    &get_in: $word
-    hash.sha512: $word
-    &out: $word
+#extend <vio>
+#extend <hash>
+#prog_name "hash_demo"
+#new $word
+#start
+    &get_in:($word)
+    hash.sha512:($word)
+    &out:($word)
