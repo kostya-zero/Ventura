@@ -13,7 +13,7 @@ cpdef resolve(args: str, memory: dict):
 
                     if arg1.startswith('$') and not arg1.startswith('$__'):
                         if arg1 in memory.keys():
-                            arg1 = memory[arg1]
+                            arg1 = memory[arg1]["value"]
                         else:
                             raise MemoryError('Variable are not registered -> ' + arg1)
                     elif arg1.startswith('"') and arg1.endswith('"'):
@@ -24,7 +24,7 @@ cpdef resolve(args: str, memory: dict):
                     
                     if arg2.startswith('$') and not arg2.startswith('$__'):
                         if arg2 in memory.keys():
-                            arg2 = memory[arg2]
+                            arg2 = memory[arg2]["value"]
                         else:
                             raise MemoryError('Variable are not registered -> ' + arg2)
                     elif arg2.startswith('"') and arg2.endswith('"'):
@@ -53,7 +53,7 @@ cpdef resolve(args: str, memory: dict):
 
                     if arg1.startswith('$') and not arg1.startswith('$__'):
                         if arg1 in memory.keys():
-                            arg1 = memory[arg1]
+                            arg1 = memory[arg1]["value"]
                         else:
                             raise MemoryError('Variable are not registered -> ' + arg1)
                     elif arg1.startswith('"') and arg1.endswith('"'):
@@ -64,7 +64,7 @@ cpdef resolve(args: str, memory: dict):
 
                     if arg2.startswith('$') and not arg2.startswith('$__'):
                         if arg2 in memory.keys():
-                            arg2 = memory[arg2]
+                            arg2 = memory[arg2]["value"]
                         else:
                             raise MemoryError('Variable are not registered -> ' + arg2)
                     elif arg2.startswith('"') and arg2.endswith('"'):

@@ -1,7 +1,9 @@
 #extend <vio>
+#extend <text>
 #extend <env>
 #prog_name "get_os_ver"
 #new $ver
 #start
+    text.init:($ver)
     env.os_ver:($ver)
     &out:($ver)

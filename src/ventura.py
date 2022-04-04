@@ -12,11 +12,11 @@ except:
 import internal.args as args
 from internal.parser import Parser
 
+
 if platform.architecture()[1] == "WindowsPE":
-    system('title Ventura 1.3')
+    system('title Ventura 1.4')
 else:
     pass
-
 def ParseFile(arg):
     if path.exists(arg):
         if path.isfile(arg):
@@ -37,7 +37,7 @@ def ParseFile(arg):
 
 arch.CheckArch()
 if len(sys.argv) == 1:
-    print(f'Ventura Interpreter 1.3 Phoenix Build 74\nUsage of interpreter:\nventura [path_to_file]\nor\nventura [option]\nTo show help, write "ventura -H" or "ventura --help" to the command line.')
+    print(f'Ventura Interpreter 1.4 Catalyst Build 97\nUsage of interpreter:\nventura [path_to_file]\nor\nventura [option]\nTo show help, write "ventura -H" or "ventura --help" to the command line.')
     sys.exit()
 else:
     arg = sys.argv[1]

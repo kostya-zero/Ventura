@@ -1,8 +1,10 @@
 #extend <vio>
 #extend <hash>
+#extend <text>
 #prog_name "hash_demo"
 #new $word
 #start
+    text.init:($word)
     &get_in:($word)
     hash.sha512:($word)
     &out:($word)

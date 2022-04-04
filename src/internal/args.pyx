@@ -5,7 +5,7 @@ from bin.terminal import Terminal
 cpdef resolve(arg: str):
     if arg.startswith('-'):
         if arg == '-V' or arg == '--version':
-            print('Version 1.3 Phoenix // Build 74')
+            print('Version 1.4 Catalyst // Build 97')
             sys.exit(0)
         elif arg == '-T' or arg == '--terminal':
             Terminal.Run()

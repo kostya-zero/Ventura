@@ -1,55 +1,53 @@
-import sys, os, shutil
+from os import path, mkdir, rmdir
+from shutil import rmtree
 from internal.exceptions import SyntaxError, PackageError, MemoryError, TypeError
 import internal.formater as Formater
 from internal.funcs import Funcs
+
+
 Funcs = Funcs()
+
+
 cpdef mk(args: str, memory: dict):
-    if Funcs.IsVar(args) and Funcs.CheckVar(args, memory):
-        args = Funcs.GetVar(args, memory)
-        if os.path.exists(args):
-            raise PackageError("Directory with same name already exist.")
+    if Funcs.IsVar(args):
+        if Funcs.CheckVar(args, memory) and Funcs.IsTextVar(args, memory):
+            path = memory[args]["value"]
+            mkdir(path)
         else:
-            os.mkdir(args)
+            raise TypeError('Variable are not located or its not text type.')
     elif Funcs.IsText(args):
         args = args.strip('"')
         args = Formater.FormatString(args)
-        if os.path.exists(args):
-            raise PackageError("Directory with same name already exist.")
-        else:
-            os.mkdir(args)
+        mkdir(args)
     else:
-        raise TypeError("Bad argument type.\n                Function require text or variable as argument.")
+        raise TypeError('Variable are not located or its not text type.')
+
 
 cpdef rm(args: str, memory: dict):
-    if Funcs.IsVar(args) and Funcs.CheckVar(args, memory):
-        args = Funcs.GetVar(args, memory)
-        if os.path.exists(args):
-            os.rmdir(args)
+    if Funcs.IsVar(args):
+        if Funcs.CheckVar(args, memory) and Funcs.IsTextVar(args, memory):
+            path = memory[args]["value"]
+            rmdir(path)
         else:
-            raise PackageError(f"Cant find directory at path: {args}")
+            raise TypeError('Variable are not located or its not text type.')
     elif Funcs.IsText(args):
         args = args.strip('"')
         args = Formater.FormatString(args)
-        if os.path.exists(args):
-            os.rmdir(args)
-        else:
-            raise PackageError(f"Cant find directory at path: {args}")
+        rmdir(args)
     else:
-        raise TypeError("Bad argument type.\n                Function require text or variable as argument.")
+        raise TypeError('Variable are not located or its not text type.')
+
 
 cpdef rm_tree(args: str, memory: dict):
-    if Funcs.IsVar(args) and Funcs.CheckVar(args, memory):
-        args = Funcs.GetVar(args, memory)
-        if os.path.exists(args):
-            shutil.rmtree(args)
+    if Funcs.IsVar(args):
+        if Funcs.CheckVar(args, memory) and Funcs.IsTextVar(args, memory):
+            path = memory[args]["value"]
+            rmtree(path)
         else:
-            raise PackageError(f"Cant find directory at path: {args}")
+            raise TypeError('Variable are not located or its not text type.')
     elif Funcs.IsText(args):
         args = args.strip('"')
         args = Formater.FormatString(args)
-        if os.path.exists(args):
-            shutil.rmtree(args)
-        else:
-            raise PackageError(f"Cant find directory at path: {args}")
+        rmtree(args)
     else:
-        raise TypeError("Bad argument type.\n                Function require text or variable as argument.")
+        raise TypeError('Variable are not located or its not text type.')

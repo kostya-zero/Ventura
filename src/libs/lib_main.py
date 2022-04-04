@@ -1,6 +1,7 @@
 import sys, os
 from internal.exceptions import SyntaxError, PackageError, MemoryError, TypeError
 import internal.formater as Formater
+from platform import architecture
 from internal.funcs import Funcs
 funcs = Funcs()
 class Main:
@@ -64,7 +65,7 @@ class Main:
                 val = sp[1].strip()
                 if funcs.IsVar(var) and funcs.CheckVar(var, memory) and not var.startswith('$__'):
                     if funcs.IsTextVar(var, memory) and funcs.IsText(val):
-                        memory[var]["value"] = val
+                        memory[var]["value"] = val.strip('"')
                         return memory
                     elif funcs.IsTextVar(val, memory) and funcs.IsVar(val) and funcs.CheckVar(val, memory) and memory[val]["type"] == "text":
                         memory[var]["value"] = memory[val]["value"]
@@ -82,14 +83,7 @@ class Main:
             raise PackageError(f'Function expression must have only one single ":".')
         else:
             split = args.split(':')
-            if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
-                pass
-            else:
-                raise TypeError("Arguments must be in brackets. New in 1.3 version.")
-            var = split[1].strip()
-            var = var.lstrip('(')
-            var = var.rstrip(')')
-            var = var.strip()
+            var = split[1].strip().lstrip('(').rstrip(')').strip()
             if funcs.IsVar(var):
                 if funcs.CheckVar(var, memory):
                     memory.pop(var)
@@ -108,21 +102,21 @@ class Main:
                 pass
             else:
                 raise TypeError("Arguments must be in brackets. New in 1.3 version.")
-            var = split[1].strip()
-            var = var.lstrip('(')
-            var = var.rstrip(')')
-            var = var.strip()
+            var = split[1].strip().lstrip('(').rstrip(')').strip()
             if funcs.IsVar(var):
                 if funcs.CheckVar(var, memory) and not var.startswith('$__'):
                     memory[var]["value"] = ''
                     return memory
                 else:
-                    raise MemoryError(f'Variable "{arg}" are not located in memory or its reserved variable.')
+                    raise MemoryError(f'Variable "{var}" are not located in memory or its reserved variable.')
             else:
                 raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
 
     def wipe():
-        os.system('cls')
+        if architecture()[1] == "WindowsPE":
+            os.system('cls')
+        else:
+            os.system('clear')
 
     def get_in(args: str, memory: dict):
         if args.count(':') == 0 or args.count(':') >= 2:
@@ -139,27 +133,20 @@ class Main:
             else:
                 raise MemoryError(f'Variable "{var}" are not located in memory or its reserved variable.')
 
-
-    # def execute(args: str, memory: dict):
-    #     if args.count(':') == 0 or args.count(':') >= 2:
-    #         raise PackageError(f'Function expression must have only one single ":".')
-    #     else:
-    #         split = args.split(':')
-    #         if split[1].strip().startswith('(') and split[1].strip().endswith(')'):
-    #             pass
-    #         else:
-    #             raise TypeError("Arguments must be in brackets. New in 1.3 version.")
-    #         act = split[1].strip()
-    #         act = act.lstrip('(')
-    #         act = act.rstrip(')')
-    #         act = act.strip()
-    #         if funcs.IsVar(act):
-    #             if funcs.CheckVar(act, memory):
-    #                 os.system(memory[act])
-    #             else:
-    #                 raise MemoryError(f'Variable are not registred -> {act}. \n                Try write above ";entry" line ";new ${act.lstrip("$")}".')
-    #         elif funcs.IsText(act):
-    #             act = act.strip('"')
-    #             os.system(act)
-    #         else:
-    #             raise TypeError('Bad argument format. \n                Argument can be variable or text value.')
+    def execute(args: str, memory: dict):
+        if args.count(':') == 0 or args.count(':') >= 2:
+            raise PackageError(f'Function expression must have only one single ":".')
+        else:
+            split = args.split(':')
+            cmd = split[1].strip().lstrip('(').rstrip(')').strip()
+            if funcs.IsVar(cmd) and funcs.CheckVar(cmd, memory) and not cmd.startswith('$__'):
+                if funcs.IsTextVar(cmd, memory):
+                    os.system(memory[cmd]["value"])
+                else:
+                    raise TypeError('You can use only text variables.')
+            elif funcs.IsText(cmd):
+                cmd = cmd.strip('"')
+                cmd = Formater.FormatString(cmd)
+                os.system(cmd)
+            else:
+                raise TypeError(f'Bad arguments format.')

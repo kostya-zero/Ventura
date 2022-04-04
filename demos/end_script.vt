@@ -1,15 +1,17 @@
 #extend <vio>
+#extend <text>
 #prog_name "end_script"
-#new $a
+#new $sug
 #start
+    text.init:($sug)
     &out:("Do you want to end the script?")
-    &get_in:($a)
-    @if_equals:$a,"y"
+    &get_in:($sug)
+    @if_equals:$sug,"y"
         &out:("Okay!")
         &exit
     @close
 
-    @if_notequals:$a,"y"
+    @if_notequals:$sug,"y"
         &out:("I don't care about what you typed. I close it anyway! Ha-ha-ha!")
         &exit
     @close

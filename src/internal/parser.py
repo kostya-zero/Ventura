@@ -24,7 +24,8 @@ class Parser(object):
             "shell": False,
             "hash": False,
             "dirsmgr": False,
-            "env": False
+            "env": False,
+            "process": False
         }
         self.funcs = {}
 
@@ -152,6 +153,10 @@ class Parser(object):
                                 import libs.lib_env as Env
                                 self.libs["env"] = True
 
+                            elif split[1] == '<process>':
+                                import libs.lib_process as Process
+                                self.libs["process"] = True
+
                             else:
                                 raise ExtendError(f'Unknown library -> "{split[1]}".')
                         elif line.startswith('#prog_name'):
@@ -170,8 +175,9 @@ class Parser(object):
                             if split[1].startswith('$__'):
                                 raise TypeError(f'Variable name cant have name like reserved variable.')
                             elif split[1].startswith('$'):
-                                self.memory[split[1]]["type"] = 'null'
-                                self.memory[split[1]]["value"] = ''
+                                # self.memory[split[1]]["type"] = 'null'
+                                # self.memory[split[1]]["value"] = ''
+                                self.memory[split[1]] = {"type":"null","value":""}
                             else:
                                 raise TypeError(f'Variable name must starts with "$".')
                         else:
@@ -199,7 +205,7 @@ class Parser(object):
                         elif act == '&execute': self.main.execute(line, self.memory)
                         else: raise TypeError(f'Unknown expression -> {line}.')
                         
-                    else: raise InternalError(f'Main package are not used. Import it with ";extend" function.')
+                    else: raise InternalError(f'Main package are not used.')
                 else: 
                     if line.count(':') == 0 or line.count(':') >= 2:
                         raise PackageError(f'Function expression must have only one single ":".')
@@ -233,7 +239,7 @@ class Parser(object):
                                 elif act_mdl == 'append_end': self.memory = self.text.append_end(args, self.memory)
                                 elif act_mdl == 'set': self.memory = self.text.set(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
-                            else: raise InternalError(f'text package are not used. Import it with ";extend" function.')
+                            else: raise InternalError(f'text package are not used.')
 
                         elif act_pkg == 'fstream':
                             if self.libs["fstream"]:
@@ -246,7 +252,7 @@ class Parser(object):
                                 elif act_mdl == 'exist': self.memory = self.fstream.exist(args, self.memory)
                                 else: raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'fstream package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'fstream package are not used.')
 
                         elif act_pkg == 'console':
                             if self.libs["console"]:
@@ -258,7 +264,7 @@ class Parser(object):
                                 else:
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'console package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'console package are not used.')
 
                         elif act_pkg == 'shell':
                             if self.libs["shell"]:
@@ -269,7 +275,7 @@ class Parser(object):
                                 else:
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'shell package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'shell package are not used.')
 
                         elif act_pkg == 'hash':
                             if self.libs["hash"]:
@@ -279,7 +285,16 @@ class Parser(object):
                                 else:
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'hash package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'hash package are not used.')
+
+                        elif act_pkg == 'process':
+                            if self.libs["process"]:
+                                if act_mdl == 'start': Process.start(args, self.memory)
+                                elif act_mdl == 'getout': self.memory = Process.getout(args, self.memory)
+                                else:
+                                    raise TypeError(f'Unknown expression -> {line}.')
+                            else:
+                                raise InternalError(f'process package are not used.')
 
                         elif act_pkg == 'dirsmgr':
                             if self.libs["dirsmgr"]:
@@ -289,7 +304,7 @@ class Parser(object):
                                 else:
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'dirsmgr package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'dirsmgr package are not used.')
 
                         elif act_pkg == 'env':
                             if self.libs["env"]:
@@ -302,9 +317,10 @@ class Parser(object):
                                 else:
                                     raise TypeError(f'Unknown expression -> {line}.')
                             else:
-                                raise InternalError(f'env package are not used. Import it with ";extend" function.')
+                                raise InternalError(f'env package are not used.')
                         else:
                             raise InternalError(f'Unknown package use -> {act_pkg}. See list of available packges.')
+
             except InternalError as ie:
                 Funcs.ThrowError(str(ie), 'InternalError', line, num)
                 break

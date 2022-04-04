@@ -1,6 +1,9 @@
 import os, sys, platform
 sys.dont_write_bytecode = True
 from internal.parser import Parser
+from datetime import datetime
+
+
 class Terminal:
     def Run():
         lines = []
@@ -9,8 +12,7 @@ class Terminal:
             os.system('cls')
         else:
             os.system('clear')
-        print("Ventura Interpreter 1.3 Phoenix // Terminal mode")
-        print('Terminal mode still in Preview.')
+        print(f"Ventura Interpreter 1.4 Catalyst // Session [{datetime.time()} {datetime.date()}]")
         print('Type .help for help.')
         while True:
             act = input(f'\33[92m>>>\33[0m ')
@@ -18,7 +20,7 @@ class Terminal:
                 lines = []
                 print('Script was cleared.')
             elif act == '.ver':
-                print('Version 1.3 Phoenix // Build 74')
+                print('Version 1.4 Catalyst // Build 90')
             elif act == '.lines':
                 print('Lines in current script:')
                 line_num = 0

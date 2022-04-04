@@ -1,7 +1,9 @@
 #extend <vio>
+#extend <text>
 #prog_name "output"
 #new $input
-#entry
+#start
+    text.init:($input)
     >> Now, we need to get input from user.
     &out:("Type something%19")
     >> Get input from user.
