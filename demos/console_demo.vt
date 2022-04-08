@@ -4,4 +4,4 @@
 #start
     >> console is a library written on Cython.
     >> console works more faster as &out from
-	console.write:("Hello world!")
+console.write:("Hello world!")

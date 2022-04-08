@@ -1,0 +1,5 @@
+#extend <vio>
+#start
+    @repeat *5 {
+        &out:("Hello")
+    }

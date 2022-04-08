@@ -1,4 +1,6 @@
 import sys
+
+
 cdef class Funcs:
     cpdef ThrowError(self, str msg, str type, str line, int num):
         print('')
@@ -6,11 +8,6 @@ cdef class Funcs:
         print(f'{type}: {msg}')
         print(f'Line expression: {line}')
         print(f'Line Number: {str(num)}')
-        print('')
-        print('If you want to find a solution for this error, check')
-        print('documentation of Ventura for solution. Or go to')
-        print('official GitHub page and create an issue with your')
-        print('question and code snippet.')
 
     cpdef CheckVar(self, str var, dict memory):
         if var.startswith('$'):
@@ -42,6 +39,12 @@ cdef class Funcs:
 
     cpdef IsText(self, str word):
         if word.startswith('"') and word.endswith('"'):
+            return True
+        else:
+            return False
+
+    cpdef IsNumber(self, str word):
+        if word.startswith('*'):
             return True
         else:
             return False

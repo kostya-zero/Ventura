@@ -1,4 +1,5 @@
 from .funcs import Funcs
+from .exceptions import TypeError
 funcs = Funcs()
 cpdef ClearWhitespaces(text: str):
     text = text.strip()
@@ -13,6 +14,23 @@ cpdef Format(text: str, memory: dict):
         return text.strip('"')
     else:
         raise TypeError('Bad format.')
+
+cpdef FormatArgument(arg: str, memory: dict):
+    if funcs.IsVar(arg):
+        if funcs.CheckVar(arg, memory):
+            return memory[arg]
+        else:
+            raise TypeError(f'Variable {arg} are not located in memory.')
+    elif funcs.IsText(arg):
+        arg = arg.strip('"')
+        arg = FormatString(arg)
+        return arg
+    elif funcs.IsNumber(arg):
+        arg = arg.lstrip('*')
+        arg = int(arg)
+        return arg
+    else:
+        pass
 
 cpdef FormatString(text: str):
     text = text.replace('%10', ' ')

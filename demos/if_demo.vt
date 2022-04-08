@@ -7,11 +7,6 @@
     &get_in:($name)
     text.cls_all:($name)
 
-    @if_equals:$name,""
-        &out:("You havent typed your name!")
-    @close
+    @if:($name,==,"") {
 
-    @if_notequalse:$name,""
-        &out:("Hello! ")
-        &out:($name)
-    @close
+    } endif

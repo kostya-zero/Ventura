@@ -1,7 +1,10 @@
 #extend <vio>
+#extend <text>
 #start
-    @func test {
-        &out:("How are you?")
-    }
-    &out:("Hi!")
-    @call test
+    @func test.test:($name,$desc) {
+        @repeat *5 {
+            &out:($name)
+            &out:($desc)
+        }
+    } endfunc
+    @call test.test:("Hi!","How Are You?")

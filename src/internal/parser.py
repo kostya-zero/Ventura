@@ -33,6 +33,7 @@ class Parser(object):
         self.prog_start = False
         self.prog_ignore = False
         self.prog_inloop = False
+        self.func_skip = False
 
         self.main = None
         self.fstream = None
@@ -45,6 +46,7 @@ class Parser(object):
         for line in lines:
             try:
                 num += 1
+                def_line = line
                 line = Formater.ClearWhitespaces(line)
                 if line == '':
                     pass
@@ -54,11 +56,18 @@ class Parser(object):
                         self.prog_inloop = False
                     else:
                         raise InternalError('You havent been in a loop.')
-                elif line == '}':
+                elif self.func_skip:
+                    pass
+                elif line == '} endfunc':
+                    if self.func_skip:
+                        self.func_skip = False
+                    else:
+                        pass
+                elif line == '}' or line == '} endfunc':
                     if self.prog_ignore:
                         self.prog_ignore = False
                     else:
-                        raise InternalError('No function initialized!')
+                        pass
                 elif line.startswith('@'):
                     if self.prog_inloop == True:
                         raise InternalError('You havent exited the loop')
@@ -79,26 +88,193 @@ class Parser(object):
 
                     elif line.startswith('@func'):
                         split = line.split()
-                        func_name = split[1].strip()
+
+                        if split[1].count(':') != 1:
+                            raise TypeError('Function must have args brackets.')
+                        else:
+                            spl = split[1].split(':')
+                            arg = str(spl[1]).strip()
+                            func_name = str(spl[0]).strip()
+                            self.funcs[func_name] = {}
+                            if arg.startswith('(') and arg.endswith(')'):
+                                arg = arg.lstrip('(').rstrip(')').strip()
+                                if arg == '':
+                                    raise TypeError('You cant leave argument empty! Type "none" in brackets if function cant have arguments.')
+                                elif arg == 'none':
+                                    self.funcs[func_name]["args_count"] = 0
+                                    self.funcs[func_name]["args"] = ""
+                                else:
+                                    if arg.count(',') >= 1:
+                                        spl1 = arg.split(',')
+                                        args = []
+                                        for param in spl1:
+                                            param = param.strip()
+                                            if Funcs.IsVar(param):
+                                                args.append(param)
+                                            else:
+                                                raise TypeError('Bad argument statement. Here can be only variables.')
+
+                                        self.funcs[func_name]["args"] = args
+                                        self.funcs[func_name]["args_count"] = len(spl1)
+                                    else:
+                                        args = []
+                                        if Funcs.IsVar(arg):
+                                            args.append(arg)
+                                        else:
+                                            raise TypeError('Bad argument statement. Here can be only variables.')
+
+                                        self.funcs[func_name]["args"] = args
+                                        self.funcs[func_name]["args_count"] = 1
+
                         if split[2].strip() == '{':
                             func_lines = []
                             for i in range(num, len(lines)):
                                 cur_line = lines[i - 1].strip()
                                 if line == cur_line:
                                     pass
-                                elif cur_line == '}':
+                                elif cur_line == '} endfunc':
                                     break
+                                elif cur_line.startswith('@func'):
+                                    raise TypeError('You cant initialize new function in function!')
                                 else:
                                     func_lines.append(cur_line)
-                            self.funcs[func_name] = func_lines
+                            self.funcs[func_name]["lines"] = func_lines
                             self.prog_ignore = True
                         else:
                             raise InternalError("Function havent entry point.")
 
-                    elif line.startswith('@call'):
+                    elif line.startswith('@repeat'):
                         split = line.split(' ')
-                        if split[1].strip() in self.funcs.keys():
-                            self.Parse(self.funcs[split[1].strip()])
+                        if len(split) == 1:
+                            raise TypeError('Repeat statements require argument!')
+                        else:
+                            if len(split) > 2:
+                                if Funcs.IsNumber(split[1]):
+                                    count = int(split[1].lstrip('*'))
+                                else:
+                                    raise TypeError('Repeat function require number value!')
+
+                                if split[2] == '{':
+                                    pass
+                                else:
+                                    raise TypeError('Missing open bracket.')
+
+                                to_parse = []
+                                for i in range(num - 1, len(lines) - 1):
+                                    ln = lines[i].strip()
+                                    if ln == line:
+                                        pass
+                                    elif ln == '}':
+                                        break
+                                    else:
+                                        to_parse.append(ln)
+
+                                for i in range(0, count):
+                                    self.Parse(to_parse)
+
+                                self.prog_ignore = True
+
+                    elif line.startswith('@call'):
+                        line = line.lstrip('@call ')
+                        split = line.split(':')
+                        func_name = split[0].strip()
+                        args = str(split[1]).strip()
+                        if func_name in self.funcs.keys():
+                            if self.funcs[func_name]["args_count"] == 0:
+                                self.Parse(self.funcs[func_name]["lines"])
+                            else:
+                                if args.startswith('(') and args.endswith(')'):
+                                    args = args.lstrip('(').rstrip(')').strip()
+                                    if args.count(',') == 0 and self.funcs[func_name]["args_count"] == 1:
+                                        for arg in self.funcs[func_name]["args"]:
+                                            if Funcs.IsVar(args) and Funcs.CheckVar(args, self.memory):
+                                                self.memory[arg] = self.memory[args]
+                                            elif Funcs.IsText(args):
+                                                self.memory[arg] = {}
+                                                self.memory[arg]["type"] = "text"
+                                                self.memory[arg]["value"] = Formater.FormatString(args.strip('"'))
+                                            elif Funcs.IsNumber(args):
+                                                self.memory[arg] = {}
+                                                self.memory[arg]["type"] = "number"
+                                                self.memory[arg]["value"] = int(args.lstrip('*'))
+                                            else:
+                                                raise TypeError('Bad arguments given')
+                                    elif args == 'none':
+                                        pass
+                                    else:
+                                        spl = args.split(',')
+                                        if len(spl) == self.funcs[func_name]["args_count"]:
+                                            for arg in self.funcs[func_name]["args"]:
+                                                if Funcs.IsVar(spl[0]) and Funcs.CheckVar(spl[0], self.memory):
+                                                    self.memory[arg] = self.memory[spl[0]]
+                                                    spl.pop(0)
+                                                elif Funcs.IsText(spl[0]):
+                                                    self.memory[arg] = {}
+                                                    self.memory[arg]["type"] = "text"
+                                                    self.memory[arg]["value"] = Formater.FormatString(spl[0].strip('"'))
+                                                    spl.pop(0)
+                                                elif Funcs.IsNumber(spl[0]):
+                                                    self.memory[arg] = {}
+                                                    self.memory[arg]["type"] = "number"
+                                                    self.memory[arg]["value"] = int(spl[0].lstrip('*'))
+                                                    spl.pop(0)
+                                                else:
+                                                    raise TypeError('Bad arguments given')
+                                        else:
+                                            raise TypeError(f"Function require {self.funcs[func_name]['args_count']} arguments, but {str(len(spl))} given!")
+                                    self.Parse(self.funcs[func_name]["lines"])
+                                    if args.count(',') == 0 and self.funcs[func_name]["args_count"] == 1:
+                                        for arg in self.funcs[func_name]["args"]:
+                                            if Funcs.IsVar(args) and Funcs.CheckVar(args, self.memory):
+                                                self.memory[arg] = self.memory[args]
+                                            elif Funcs.IsText(args):
+                                                self.memory[arg] = {}
+                                                self.memory[arg]["type"] = "text"
+                                                self.memory[arg]["value"] = Formater.FormatString(args.strip('"'))
+                                            elif Funcs.IsNumber(args):
+                                                self.memory[arg] = {}
+                                                self.memory[arg]["type"] = "number"
+                                                self.memory[arg]["value"] = int(args.lstrip('*'))
+                                            else:
+                                                raise TypeError('Bad arguments given')
+                                    elif args == 'none':
+                                        pass
+                                    else:
+                                        spl = args.split(',')
+                                        if len(spl) == self.funcs[func_name]["args_count"]:
+                                            for arg in self.funcs[func_name]["args"]:
+                                                if Funcs.IsVar(spl[0]) and Funcs.CheckVar(spl[0], self.memory):
+                                                    self.memory.pop(arg)
+                                                    spl.pop(0)
+                                                elif Funcs.IsText(spl[0]):
+                                                    self.memory.pop(arg)
+                                                    spl.pop(0)
+                                                elif Funcs.IsNumber(spl[0]):
+                                                    self.memory.pop(arg)
+                                                    spl.pop(0)
+                                                else:
+                                                    raise TypeError('Bad arguments given')
+                                        elif args == 'none':
+                                            pass
+                                        else:
+                                            spl = args.split(',')
+                                            if len(spl) == self.funcs[func_name]["args_count"]:
+                                                for arg in self.funcs[func_name]["args"]:
+                                                    if Funcs.IsVar(spl[0]) and Funcs.CheckVar(spl[0], self.memory):
+                                                        self.memory.pop(arg)
+                                                        spl.pop(0)
+                                                    elif Funcs.IsText(spl[0]):
+                                                        self.memory.pop(arg)
+                                                        spl.pop(0)
+                                                    elif Funcs.IsNumber(spl[0]):
+                                                        self.memory.pop(arg)
+                                                        spl.pop(0)
+                                                    else:
+                                                        raise TypeError('Bad arguments given')
+                                else:
+                                    raise TypeError('No arguments brackets!')
+
+
                         else:
                             raise InternalError("Function not registred.")
                     
@@ -185,6 +361,10 @@ class Parser(object):
                     else:
                         raise InternalError('Program already started.')
                 elif line.startswith('&'):
+                    if def_line.startswith('    '):
+                        pass
+                    else:
+                        raise SyntaxError('Not in start statement.')
                     if self.libs["main"] == True:
                         act = ''
                         if line.count(':') == 1:
@@ -206,7 +386,11 @@ class Parser(object):
                         else: raise TypeError(f'Unknown expression -> {line}.')
                         
                     else: raise InternalError(f'Main package are not used.')
-                else: 
+                else:
+                    if def_line.startswith('    '):
+                        pass
+                    else:
+                        raise TypeError('Not in start statement.')
                     if line.count(':') == 0 or line.count(':') >= 2:
                         raise PackageError(f'Function expression must have only one single ":".')
                     else:

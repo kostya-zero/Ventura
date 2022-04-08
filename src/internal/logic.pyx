@@ -81,5 +81,6 @@ cpdef resolve(args: str, memory: dict):
                     raise TypeError('@if_equals can receive only two argument.')
             else:
                 raise TypeError('@if_equals statement must have only one ":".')
+
         else:
             raise TypeError('Bad statement for internal action.')
